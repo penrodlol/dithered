@@ -1,6 +1,7 @@
 ---
 import '@/tailwind.css';
 import '@fontsource/geist-sans';
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
@@ -14,8 +15,9 @@ import '@fontsource/geist-sans';
     <meta name="description" content="Dithered" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <ClientRouter />
   </head>
-  <body class="flex min-h-svh flex-col antialiased">
+  <body class="bg-gray-1 text-gray-12 flex min-h-svh flex-col antialiased">
     <header></header>
     <main class="flex-1"><slot /></main>
     <footer></footer>

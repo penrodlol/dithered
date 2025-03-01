@@ -33,9 +33,6 @@ importers:
       astro-robots-txt:
         specifier: ^1.0.0
         version: 1.0.0
-      astro-theme-toggle:
-        specifier: ^0.5.1
-        version: 0.5.1
       prettier:
         specifier: ^3.5.2
         version: 3.5.2
@@ -752,9 +749,6 @@ packages:
 
   astro-robots-txt@1.0.0:
     resolution: {integrity: sha512-6JQSLid4gMhoWjOm85UHLkgrw0+hHIjnJVIUqxjU2D6feKlVyYukMNYjH44ZDZBK1P8hNxd33PgWlHzCASvedA==}
-
-  astro-theme-toggle@0.5.1:
-    resolution: {integrity: sha512-KTKGHFsZf4jyGat/2oSQ6sJobsTT/Xh3LTBzHu4x4rY7vL45HYF709BFAM2i0AscHNcJxFX88+pu4S4ZyUTWVw==}
 
   astro@5.4.1:
     resolution: {integrity: sha512-z9BiBz8pV7pZVn1evZv/9bJil3A9UZNyEjDFH3IjD87ioz95HHGLgbjRbbqF1EwSy8JOLKlMNyuQPqjrX8xqWw==}
@@ -2968,8 +2962,6 @@ snapshots:
     dependencies:
       valid-filename: 4.0.0
       zod: 3.24.2
-
-  astro-theme-toggle@0.5.1: {}
 
   astro@5.4.1(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.9)(typescript@5.8.2):
     dependencies:
