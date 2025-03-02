@@ -1,0 +1,44 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv, type VariantProps } from 'tailwind-variants';
+import Icon from './icon.astro';
+
+type Props = HTMLAttributes<'button'> & ButtonVariants & { icon?: string };
+
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
+
+export const buttonVariants = tv({
+  base: [
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded focusable',
+    'disabled:opacity-50 disabled:pointer-events-none motion-safe:transition-colors ',
+  ],
+  defaultVariants: { variant: 'brand-solid', size: 'md' },
+  variants: {
+    variant: {
+      'gray-solid': 'bg-gray-9 text-gray-contrast border-none hover:bg-gray-10',
+      'gray-soft': 'bg-gray-3 text-gray-11 border-none hover:bg-gray-4',
+      'gray-soft-outline': 'bg-gray-3 text-gray-11 border border-gray-7 hover:border-gray-8',
+      'gray-outline': 'bg-transparent text-gray-11 border border-gray-7 hover:bg-gray-3',
+      'gray-ghost': 'bg-transparent text-gray-11 border-none hover:bg-gray-3 hover:text-gray-12',
+      'brand-solid': 'bg-brand-9 text-brand-contrast border-none hover:bg-brand-10',
+      'brand-soft': 'bg-brand-3 text-brand-11 border-none hover:bg-brand-4',
+      'brand-soft-outline': 'bg-brand-3 text-brand-11 border border-brand-7 hover:border-brand-8',
+      'brand-outline': 'bg-transparent text-brand-11 border border-brand-7 hover:bg-brand-3',
+      'brand-ghost': 'bg-transparent text-brand-11 border-none hover:bg-brand-3 hover:text-brand-12',
+    },
+    size: {
+      sm: 'h-7 px-4 text-xs',
+      md: 'h-9 px-6 text-sm',
+      lg: 'h-11 px-8 text-base',
+      icon: 'size-8',
+    },
+  },
+});
+
+const { class: className, type, variant, size, icon, ...props } = Astro.props;
+---
+
+<button {...props} type={type ?? 'button'} class={buttonVariants({ variant, size, className })}>
+  <slot />
+  {size === 'icon' && icon && <Icon name={icon} />}
+</button>

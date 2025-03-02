@@ -1,9 +1,7 @@
 @import 'tailwindcss';
 
-@variant dark (&:where(.dark, .dark *));
-
 @theme {
-  --font-sans: 'Geist Sans', sans-serif;
+  --font-mono: 'Inconsolata Variable', monospace;
 
   --text-2xs: clamp(0.76rem, calc(0.76rem + (0.02 * (100vw - 20rem) / 76)), 0.8rem);
   --text-xs: clamp(0.87rem, calc(0.87rem + (0.02 * (100vw - 20rem) / 76)), 0.889rem);
@@ -30,11 +28,9 @@
   --color-gray-8: oklch(56.8% 0 none);
   --color-gray-9: oklch(41% 0 none);
   --color-gray-10: oklch(37.5% 0 none);
-  --color-gray-11: oklch(28.4% 0 none);
-  --color-gray-12: oklch(24% 0 none);
+  --color-gray-11: oklch(32.4% 0 none);
+  --color-gray-12: oklch(12% 0 none);
   --color-gray-contrast: oklch(0% 0 none);
-  --color-gray-indicator: oklch(41% 0 none);
-  --color-gray-track: oklch(41% 0 none);
 
   --color-brand-1: oklch(84.1% 0 none);
   --color-brand-2: oklch(81.8% 0 none);
@@ -49,8 +45,6 @@
   --color-brand-11: oklch(28.4% 0 none);
   --color-brand-12: oklch(24% 0 none);
   --color-brand-contrast: oklch(100% 0 none);
-  --color-brand-indicator: oklch(0% 0 none);
-  --color-brand-track: oklch(0% 0 none);
 }
 
 @utility scrollbar {
