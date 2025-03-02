@@ -9,14 +9,19 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@alpinejs/focus": "^3.14.8",
+    "alpinejs": "^3.14.8",
     "astro": "^5.4.1"
   },
   "devDependencies": {
+    "@astrojs/alpinejs": "^0.4.3",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/vercel": "^8.1.0",
-    "@fontsource/geist-sans": "^5.2.0",
+    "@fontsource-variable/inconsolata": "^5.2.0",
     "@iconify-json/lucide": "^1.2.27",
     "@tailwindcss/vite": "^4.0.9",
+    "@types/alpinejs": "^3.13.11",
+    "@types/alpinejs__focus": "^3.13.4",
     "astro-icon": "^1.1.5",
     "astro-robots-txt": "^1.0.0",
     "prettier": "^3.5.2",

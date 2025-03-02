@@ -1,3 +1,4 @@
+import alpine from '@astrojs/alpinejs';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
@@ -11,5 +12,10 @@ export default defineConfig({
   adapter: vercel({ webAnalytics: { enabled: true }, imageService: true }),
   experimental: { responsiveImages: true },
   vite: { plugins: [tailwindcss()] },
-  integrations: [icon(), sitemap(), robotsTxt({ policy: [{ userAgent: '*', disallow: ['/404'] }] })],
+  integrations: [
+    alpine({ entrypoint: '/alpine.config.ts' }),
+    icon(),
+    sitemap(),
+    robotsTxt({ policy: [{ userAgent: '*', disallow: ['/404'] }] }),
+  ],
 });
