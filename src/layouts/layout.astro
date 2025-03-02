@@ -1,11 +1,25 @@
 ---
+import Text from '@/components/text.astro';
 import '@/tailwind.css';
-import '@fontsource/geist-sans';
+import '@fontsource-variable/inconsolata';
+import type { HTMLAttributes } from 'astro/types';
 import { ClientRouter } from 'astro:transitions';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'main'>;
+
+const { class: className, ...props } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  class:list={[
+    'bg-gray-2 scrollbar selection:bg-brand-12 selection:text-brand-1 my-14 font-mono antialiased',
+    'before:absolute before:inset-0 before:-z-50 before:bg-[size:2.125rem_2.125rem] before:opacity-50 before:content-[""]',
+    'before:bg-[linear-gradient(to_right,var(--color-gray-6)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-6)_1px,transparent_1px)]',
+  ]}
+>
   <head>
     <title>Dithered</title>
     <meta charset="UTF-8" />
@@ -15,11 +29,23 @@ import { ClientRouter } from 'astro:transitions';
     <meta name="description" content="Dithered" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline set:text="document.documentElement.classList.add('[&_[x-cloak]]:hidden')" />
     <ClientRouter />
   </head>
-  <body class="bg-gray-1 text-gray-12 flex min-h-svh flex-col antialiased">
-    <header></header>
-    <main class="flex-1"><slot /></main>
-    <footer></footer>
+  <body
+    class:list={[
+      'bg-gray-1 text-gray-12 rounded-border mx-auto flex flex-col shadow-2xl',
+      'min-h-[calc(100svh-(calc(var(--spacing)*28)))] w-full max-w-screen-xl',
+    ]}
+  >
+    <header class="bg-gray-2 border-gray-6 flex h-10 items-center rounded-t border-b px-6">
+      <Text weight="bold">DITHERED.DIY</Text>
+      <div class="ml-auto flex items-center gap-2">
+        <div class="rounded-border bg-gray-1 size-4 rounded-full"></div>
+        <div class="rounded-border bg-gray-1 size-4 rounded-full"></div>
+        <div class="rounded-border bg-gray-1 size-4 rounded-full"></div>
+      </div>
+    </header>
+    <main {...props} class={twMerge('flex-1 p-14', className)}><slot /></main>
   </body>
 </html>
