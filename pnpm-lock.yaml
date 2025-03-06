@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@alpinejs/anchor':
+        specifier: ^3.14.8
+        version: 3.14.8
       '@alpinejs/focus':
         specifier: ^3.14.8
         version: 3.14.8
@@ -17,6 +20,9 @@ importers:
       astro:
         specifier: ^5.4.1
         version: 5.4.1(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.9)(typescript@5.8.2)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@astrojs/alpinejs':
         specifier: ^0.4.3
@@ -39,6 +45,9 @@ importers:
       '@types/alpinejs':
         specifier: ^3.13.11
         version: 3.13.11
+      '@types/alpinejs__anchor':
+        specifier: ^3.13.1
+        version: 3.13.1
       '@types/alpinejs__focus':
         specifier: ^3.13.4
         version: 3.13.4
@@ -71,6 +80,9 @@ importers:
         version: 4.0.9
 
 packages:
+
+  '@alpinejs/anchor@3.14.8':
+    resolution: {integrity: sha512-TWdjgfdZkHQ9VxK5B5FW2R+2xcYG6lccqud3cxC5WFM9sUiSDvIuM96lHG2JhSanb9FZ23P4lfaUwFoH8ODeEw==}
 
   '@alpinejs/focus@3.14.8':
     resolution: {integrity: sha512-lTeU4lyifIL4h2nGf2BHKSX3d8lT7mPn3phR5Yu497ub+al9W2eKXVc42MVm1piY3l6KiYCdNXZTcHaTEm78Kg==}
@@ -634,6 +646,9 @@ packages:
 
   '@types/alpinejs@3.13.11':
     resolution: {integrity: sha512-3KhGkDixCPiLdL3Z/ok1GxHwLxEWqQOKJccgaQL01wc0EVM2tCTaqlC3NIedmxAXkVzt/V6VTM8qPgnOHKJ1MA==}
+
+  '@types/alpinejs__anchor@3.13.1':
+    resolution: {integrity: sha512-UyQ+qz456eshmbiMpyj8yX6YDP1Cyoget2EWMYHjFLFx4fw08/iDlaIyps97zfwTK26oIb6sAK67Lm7nsxZwzA==}
 
   '@types/alpinejs__focus@3.13.4':
     resolution: {integrity: sha512-g7pQNxST7palODhfg6DJoKWS59pD8EK1wNjkJydBP2u8LntlO8oD4f2uj6Ywh2CL/olM/bPSyYxwr+WQQPlphg==}
@@ -2390,6 +2405,8 @@ packages:
 
 snapshots:
 
+  '@alpinejs/anchor@3.14.8': {}
+
   '@alpinejs/focus@3.14.8':
     dependencies:
       focus-trap: 6.9.4
@@ -2884,6 +2901,10 @@ snapshots:
   '@trysound/sax@0.2.0': {}
 
   '@types/alpinejs@3.13.11': {}
+
+  '@types/alpinejs__anchor@3.13.1':
+    dependencies:
+      '@types/alpinejs': 3.13.11
 
   '@types/alpinejs__focus@3.13.4':
     dependencies:

@@ -9,9 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@alpinejs/anchor": "^3.14.8",
     "@alpinejs/focus": "^3.14.8",
     "alpinejs": "^3.14.8",
-    "astro": "^5.4.1"
+    "astro": "^5.4.1",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@astrojs/alpinejs": "^0.4.3",
@@ -21,6 +23,7 @@
     "@iconify-json/lucide": "^1.2.27",
     "@tailwindcss/vite": "^4.0.9",
     "@types/alpinejs": "^3.13.11",
+    "@types/alpinejs__anchor": "^3.13.1",
     "@types/alpinejs__focus": "^3.13.4",
     "astro-icon": "^1.1.5",
     "astro-robots-txt": "^1.0.0",

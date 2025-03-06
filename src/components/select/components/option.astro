@@ -1,0 +1,28 @@
+---
+import Icon from '@/components/icon.astro';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'button'> & { value: string };
+
+const { class: className, value, ...props } = Astro.props;
+---
+
+<div
+  {...props}
+  role="option"
+  :id={`id + '-option-' + "${value}"`}
+  :aria-selected={`value === "${value}"`}
+  :data-value={`"${value}"`}
+  :data-focused={`focused === "${value}"`}
+  @click={`value = "${value}"; focused = "${value}"; open = false; $refs.trigger.focus()`}
+  class={twMerge(
+    'relative flex cursor-default overflow-hidden py-1 pr-10 pl-4 text-ellipsis select-none',
+    'data-[focused=true]:ring-gray-8 data-[focused=true]:ring',
+    'hover:bg-brand-12 hover:text-brand-contrast motion-safe:transition-colors',
+    className,
+  )}
+>
+  <Icon x-show={`value === "${value}"`} name="check" class="absolute top-1/2 right-4 -translate-y-1/2" />
+  <slot />
+</div>

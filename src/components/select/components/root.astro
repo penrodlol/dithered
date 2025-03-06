@@ -1,0 +1,34 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'div'> & { defaultValue?: string };
+
+const { class: className, defaultValue, ...props } = Astro.props;
+---
+
+<div
+  {...props}
+  x-data={`{
+    id: $id('select'),
+    open: false,
+    value: "${defaultValue ?? ''}",
+    focused: "${defaultValue ?? ''}",
+    query: '',
+    queryTimeout: null,
+    getAll() { return Array.from($refs.options.querySelectorAll('[role=option]')) },
+    getFirst() { return this.getAll()[0].dataset.value },
+    getLast() { return this.getAll()[this.getAll().length - 1].dataset.value },
+    getNext() { return this.getAll()[this.getIndex() + 1]?.dataset.value },
+    getPrev() { return this.getAll()[this.getIndex() - 1]?.dataset.value },
+    getIndex() { return this.getAll().findIndex((option) => option.dataset.value === this.focused) },
+    setQuery(key) {
+      if (typeof this.queryTimeout === 'number') window.clearTimeout(this.queryTimeout);
+      this.queryTimeout = window.setTimeout(() => this.query = '', 500);
+      this.query += key;
+    }
+  }`}
+  class={twMerge('group/select', className)}
+>
+  <slot />
+</div>
