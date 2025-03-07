@@ -15,7 +15,6 @@ const { class: className, ...props } = Astro.props;
   aria-haspopup="listbox"
   tabindex="0"
   x-ref="trigger"
-  :id="id + '-trigger'"
   :aria-expanded="open"
   :aria-controls="id + '-options'"
   :aria-activedescendant="open ? focused : ''"
@@ -36,6 +35,7 @@ const { class: className, ...props } = Astro.props;
       case ' ': return prevent(), (open ? (value = focused, open = false) : (open = true));
       default: {
         if ((key.length > 1 && !['Backspace', 'Clear'].includes(key)) || alt || ctrl || meta) return;
+        if (!open) open = true;
         prevent();
         setQuery(key);
         const nextFocused = getAll().find((option) => option.dataset.value.toLowerCase().includes(query.toLowerCase()));

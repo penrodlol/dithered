@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'div'> & { name: string };
+
+const { class: className, name, ...props } = Astro.props;
+---
+
+<div
+  {...props}
+  x-data=`{ name: $id("field") + "-${name}" }`
+  x-init={`
+    const control = $el.querySelector("input,textarea,select,[role=combobox]");
+    control?.setAttribute("name", "${name}");
+    control?.setAttribute("id", name);
+    control?.setAttribute("aria-labelledby", name + "-label");
+    control?.setAttribute("aria-describedby", name + "-description");
+`}
+  class={twMerge('flex flex-col gap-1', className)}
+>
+  <slot />
+</div>

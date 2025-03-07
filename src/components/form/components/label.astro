@@ -1,0 +1,10 @@
+---
+import Text from '@/components/text.astro';
+import type { ComponentProps } from 'astro/types';
+
+type Props = Omit<ComponentProps<typeof Text<'label'>>, 'as'>;
+
+const { weight, ...props } = Astro.props;
+---
+
+<Text {...props} as="label" weight={weight ?? 'bold'} :id="name + '-label'" :for="name"><slot /></Text>
