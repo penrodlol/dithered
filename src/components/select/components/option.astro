@@ -1,28 +1,22 @@
 ---
-import Icon from '@/components/icon.astro';
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = HTMLAttributes<'button'> & { value: string };
+type Props = HTMLAttributes<'option'>;
 
-const { class: className, value, ...props } = Astro.props;
+const { class: className, ...props } = Astro.props;
 ---
 
-<div
+<option
   {...props}
-  role="option"
-  :id={`id + '-option-' + "${value}"`}
-  :aria-selected={`value === "${value}"`}
-  :data-value={`"${value}"`}
-  :data-focused={`focused === "${value}"`}
-  @click={`value = "${value}"; focused = "${value}"; open = false; $refs.trigger.focus()`}
   class={twMerge(
-    'relative flex cursor-default overflow-hidden py-1 pr-10 pl-4 text-ellipsis select-none',
-    'data-[focused=true]:ring-gray-8 data-[focused=true]:ring',
-    'hover:bg-brand-12 hover:text-brand-contrast motion-safe:transition-colors',
+    'focusable text-gray-11 checked:text-brand-12 rounded px-3 py-1',
+    'hover:bg-gray-3 hover:text-gray-12 motion-safe:transition-colors',
+    // Checkmark Icon
+    '[&::checkmark]:size-4 [&::checkmark]:bg-current [&::checkmark]:[mask-size:cover]',
+    '[&::checkmark]:[mask-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZWNrIj48cGF0aCBkPSJNMjAgNiA5IDE3bC01LTUiLz48L3N2Zz4=")]',
     className,
   )}
 >
-  <Icon x-show={`value === "${value}"`} name="check" class="absolute top-1/2 right-4 -translate-y-1/2" />
   <slot />
-</div>
+</option>

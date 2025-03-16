@@ -1,34 +1,42 @@
 ---
+import { buttonVariants, type ButtonVariants } from '@/components/button.astro';
+import { renderSlot } from '@/libs/component';
 import type { HTMLAttributes } from 'astro/types';
-import { twMerge } from 'tailwind-merge';
 
-type Props = HTMLAttributes<'div'> & { defaultValue?: string };
+type Props = HTMLAttributes<'select'> & ButtonVariants & { defaultValue?: string | undefined };
 
-const { class: className, defaultValue, ...props } = Astro.props;
+const { class: className, variant, size, defaultValue, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), {
+  option: { selected: ({ value }) => (value === defaultValue ? true : '') },
+});
 ---
 
 <div
-  {...props}
-  x-data={`{
-    id: $id('select'),
-    open: false,
-    value: "${defaultValue ?? ''}",
-    focused: "${defaultValue ?? ''}",
-    query: '',
-    queryTimeout: null,
-    getAll() { return Array.from($refs.options.querySelectorAll('[role=option]')) },
-    getFirst() { return this.getAll()[0].dataset.value },
-    getLast() { return this.getAll()[this.getAll().length - 1].dataset.value },
-    getNext() { return this.getAll()[this.getIndex() + 1]?.dataset.value },
-    getPrev() { return this.getAll()[this.getIndex() - 1]?.dataset.value },
-    getIndex() { return this.getAll().findIndex((option) => option.dataset.value === this.focused) },
-    setQuery(key) {
-      if (typeof this.queryTimeout === 'number') window.clearTimeout(this.queryTimeout);
-      this.queryTimeout = window.setTimeout(() => this.query = '', 500);
-      this.query += key;
-    }
-  }`}
-  class={twMerge('group/select', className)}
+  class={buttonVariants({
+    size,
+    variant: variant ?? 'brand-soft-outline',
+    class: [
+      'relative p-0 after:absolute after:top-1/2 after:right-4 after:-translate-y-1/2 after:z-10 after:size-4 after:content-[""]',
+      'after:bg-current after:[mask-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZXZyb24tZG93biI+PHBhdGggZD0ibTYgOSA2IDYgNi02Ii8+PC9zdmc+")] after:[mask-size:cover]',
+      'motion-safe:after:duration-400 has-open:after:rotate-180 motion-safe:after:transition-transform',
+      className,
+    ],
+  })}
 >
-  <slot />
+  <select
+    {...props}
+    set:html={html}
+    class:list={[
+      'relative z-20 flex size-full items-center rounded px-4 [&::picker-icon]:opacity-0',
+      '[appearance:base-select] not-supports-[appearance:base-select]:appearance-none',
+      'focus:ring-gray-8 focus:ring focus:outline-none',
+      // Popover
+      '[&::picker(select)]:mt-2 [&::picker(select)]:[appearance:base-select] [&::picker(select)]:p-2',
+      '[&::picker(select)]:bg-gray-1 [&::picker(select)]:text-gray-12 [&::picker(select)]:shadow-2xl',
+      '[&::picker(select)]:rounded-border [&::picker(select)]:outline-none',
+      '[&::picker(select)]:origin-top [&::picker(select)]:duration-300',
+      '[&::picker(select)]:opacity-100 motion-safe:[&::picker(select)]:starting:opacity-0',
+      '[&::picker(select)]:scale-100 motion-safe:[&::picker(select)]:starting:scale-95',
+    ]}
+  />
 </div>

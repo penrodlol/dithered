@@ -1,0 +1,13 @@
+---
+import Text from '@/components/text.astro';
+import type { ComponentProps } from 'astro/types';
+
+type Props = ComponentProps<typeof Text>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<Text {...props}>
+  <slot />
+  Drag & Drop or Browse Your Computer
+</Text>

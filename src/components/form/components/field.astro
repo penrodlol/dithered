@@ -1,23 +1,21 @@
 ---
+import { renderSlot } from '@/libs/component';
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
 type Props = HTMLAttributes<'div'> & { name: string };
 
 const { class: className, name, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), {
+  label: { id: ({ uid }) => `${uid}-label`, for: ({ uid }) => `${uid}-control` },
+  p: { id: ({ uid }) => `${uid}-description` },
+  'input,textarea,select': {
+    id: ({ uid }) => `${uid}-control`,
+    name: () => name,
+    ariaLabelledby: ({ uid }) => `${uid}-label`,
+    ariaDescribedby: ({ uid }) => `${uid}-description`,
+  },
+});
 ---
 
-<div
-  {...props}
-  x-data=`{ name: $id("field") + "-${name}" }`
-  x-init={`
-    const control = $el.querySelector("input,textarea,select,[role=combobox]");
-    control?.setAttribute("name", "${name}");
-    control?.setAttribute("id", name);
-    control?.setAttribute("aria-labelledby", name + "-label");
-    control?.setAttribute("aria-describedby", name + "-description");
-`}
-  class={twMerge('flex flex-col gap-1', className)}
->
-  <slot />
-</div>
+<div {...props} set:html={html} class={twMerge('flex flex-col gap-2', className)} />

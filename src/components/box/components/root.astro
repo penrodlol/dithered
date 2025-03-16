@@ -1,0 +1,12 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props<Tag extends HTMLTag = 'section'> = Polymorphic<{ as: Tag }>;
+
+const { as: Tag = 'section', class: className, ...props } = Astro.props;
+---
+
+<Tag {...props} class={twMerge('rounded-border flex h-full flex-col border-dashed shadow-2xl', className)}>
+  <slot />
+</Tag>

@@ -2,9 +2,9 @@
 import Text from '@/components/text.astro';
 import type { ComponentProps } from 'astro/types';
 
-type Props = Omit<ComponentProps<typeof Text<'label'>>, 'as'>;
+type Props = Omit<ComponentProps<typeof Text<'label'>>, 'as'> & { tooltip?: string };
 
-const { weight, ...props } = Astro.props;
+const { variant, weight, size, tooltip, ...props } = Astro.props;
 ---
 
-<Text {...props} as="label" weight={weight ?? 'bold'} :id="name + '-label'" :for="name"><slot /></Text>
+<Text {...props} as="label" variant={variant ?? 'soft'} weight={weight ?? 'bold'} size={size ?? '2'}><slot /></Text>

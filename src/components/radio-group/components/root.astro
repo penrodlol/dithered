@@ -1,0 +1,13 @@
+---
+import { renderSlot } from '@/libs/component';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'fieldset'> & { name: string; defaultValue?: string | undefined };
+
+const { name, defaultValue, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), {
+  'input[type="radio"]': { name: () => name, checked: ({ value }) => (value === defaultValue ? true : '') },
+});
+---
+
+<fieldset {...props} set:html={html} />

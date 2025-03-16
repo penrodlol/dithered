@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'input'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<input
+  {...props}
+  type="checkbox"
+  class={twMerge(
+    'focusable relative h-6 w-12 appearance-none rounded-full',
+    'before:absolute before:inset-0 before:content-[""]',
+    'before:border-gray-6 before:rounded-full before:border',
+    'before:inset-shadow-gray-6/50 before:inset-shadow-sm',
+    'checked:before:bg-brand-9 before:duration-400 motion-safe:transition-colors',
+    'after:absolute after:top-1/2 after:left-1 after:-translate-y-1/2',
+    'after:bg-gray-9 after:size-4 after:rounded-full',
+    'after:duration-200 motion-safe:after:transition-[left,background]',
+    'checked:after:bg-brand-contrast checked:after:left-[calc(100%-(var(--spacing)*5))]',
+  )}
+/>

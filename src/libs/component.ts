@@ -13,12 +13,10 @@ export type ComponentsRenderProp = Record<string, string | number | boolean | nu
   last: boolean;
 };
 
-export function render(html: string, props: ComponentsRenderProps) {
+export function renderSlot(html: string, props: ComponentsRenderProps, uid = crypto.randomUUID()) {
   const processor = rehype()
     .data('settings', { fragment: true })
     .use(() => (root: Element) => {
-      const uid = crypto.randomUUID();
-
       Object.entries(props).forEach(([selector, _props]) =>
         selectAll(selector, root).forEach((node, index, nodes) =>
           Object.entries(_props).forEach(([key, value]) => {
@@ -34,4 +32,9 @@ export function render(html: string, props: ComponentsRenderProps) {
     });
 
   return String(processor.processSync(html).value);
+}
+
+export function renderSlots(...slots: Array<{ html: string; props: ComponentsRenderProps }>) {
+  const uid = crypto.randomUUID();
+  return slots.map(({ html, props }) => renderSlot(html, props, uid));
 }

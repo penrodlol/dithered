@@ -9,7 +9,7 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 export const buttonVariants = tv({
   base: [
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded focusable',
+    'inline-flex items-center justify-center gap-2 px-4 whitespace-nowrap rounded focusable',
     'disabled:opacity-50 disabled:pointer-events-none motion-safe:transition-colors ',
   ],
   defaultVariants: { variant: 'brand-solid', size: 'md' },
@@ -27,9 +27,9 @@ export const buttonVariants = tv({
       'brand-ghost': 'bg-transparent text-brand-11 border-none hover:bg-brand-3 hover:text-brand-12',
     },
     size: {
-      sm: 'h-7 px-4 text-xs',
-      md: 'h-9 px-6 text-sm',
-      lg: 'h-11 px-8 text-base',
+      sm: 'h-7 text-2xs',
+      md: 'h-8 text-xs',
+      lg: 'h-11 text-sm',
       icon: 'size-8',
     },
   },

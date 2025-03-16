@@ -7,4 +7,4 @@ type Props = HTMLAttributes<'form'>;
 const { class: className, ...props } = Astro.props;
 ---
 
-<form {...props} class={twMerge('flex flex-col gap-8', className)}><slot /></form>
+<form {...props} class={twMerge('flex flex-col gap-10', className)}><slot /></form>

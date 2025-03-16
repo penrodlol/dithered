@@ -2,9 +2,9 @@
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = HTMLAttributes<'div'>;
+type Props = HTMLAttributes<'input'>;
 
 const { class: className, ...props } = Astro.props;
 ---
 
-<div {...props} class={twMerge('flex h-12 items-center justify-between px-4', className)}><slot /></div>
+<div {...props} class={twMerge('', className)}><slot /></div>

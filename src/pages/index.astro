@@ -1,5 +1,56 @@
 ---
+import * as Box from '@/components/box';
+import * as Form from '@/components/form';
+import * as RadioGroup from '@/components/radio-group';
+import * as Select from '@/components/select';
+import Text from '@/components/text.astro';
 import Layout from '@/layouts/layout.astro';
+import { DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING_TYPES } from '@/libs/data';
 ---
 
-<Layout />
+<Layout>
+  <Text variant="soft" size="12" font="mono">DITHER.DIY</Text>
+  <Text variant="soft" class="tracking-tight">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
+  <Form.Root class="mt-24 grid grid-cols-[55%_1fr] grid-rows-2 gap-10">
+    <Box.Root class="row-span-2">
+      <Box.Header>
+        <Text font="mono">IMAGE UPLOAD/PREVIEW</Text>
+        <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
+      </Box.Header>
+      <Box.Content />
+    </Box.Root>
+    <Box.Root>
+      <Box.Header>
+        <Text font="mono">DITHERING SETTINGS</Text>
+        <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
+      </Box.Header>
+      <Box.Content class="flex flex-col gap-6">
+        <RadioGroup.Root name="ditheringType" defaultValue={DITHERING_TYPES[0]}>
+          <RadioGroup.Legend>Dithering Type</RadioGroup.Legend>
+          <RadioGroup.Items>
+            {DITHERING_TYPES.map((type) => <RadioGroup.Item value={type}>{type}</RadioGroup.Item>)}
+          </RadioGroup.Items>
+        </RadioGroup.Root>
+        <Form.Field name="diffusionMap">
+          <Form.Label>Diffusion Map</Form.Label>
+          <Select.Root defaultValue={DITHERING_DIFUSSION_MAPS[0]}>
+            {DITHERING_DIFUSSION_MAPS.map((map) => <Select.Option value={map}>{map}</Select.Option>)}
+          </Select.Root>
+        </Form.Field>
+        <Form.Field name="matrixSize">
+          <Form.Label>Matrix Size</Form.Label>
+          <Select.Root defaultValue={DITHERING_MATRICIES[0]}>
+            {DITHERING_MATRICIES.map((matrix) => <Select.Option value={matrix}>{matrix}</Select.Option>)}
+          </Select.Root>
+        </Form.Field>
+      </Box.Content>
+    </Box.Root>
+    <Box.Root>
+      <Box.Header>
+        <Text font="mono">COLOR SETTINGS</Text>
+        <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
+      </Box.Header>
+      <Box.Content />
+    </Box.Root>
+  </Form.Root>
+</Layout>
