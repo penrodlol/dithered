@@ -3,9 +3,10 @@ import * as Box from '@/components/box';
 import * as Form from '@/components/form';
 import * as RadioGroup from '@/components/radio-group';
 import * as Select from '@/components/select';
+import Switch from '@/components/switch.astro';
 import Text from '@/components/text.astro';
 import Layout from '@/layouts/layout.astro';
-import { DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING_TYPES } from '@/libs/data';
+import { COLOR_PRESETS, DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING_TYPES } from '@/libs/data';
 ---
 
 <Layout>
@@ -53,7 +54,19 @@ import { DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING_TYPES } from '
         <Text font="mono">COLOR SETTINGS</Text>
         <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
       </Box.Header>
-      <Box.Content />
+      <Box.Content class="flex flex-col gap-6">
+        <Form.Field name="useColorPatette">
+          <Form.Label class="flex items-center gap-6">Use Color Palette: <Switch checked={false} /></Form.Label>
+          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
+        </Form.Field>
+        <Form.Field name="colorPalettePreset">
+          <Form.Label>Color Palette Preset</Form.Label>
+          <Select.Root defaultValue={COLOR_PRESETS[0]?.label}>
+            {COLOR_PRESETS.map((preset) => <Select.Option value={preset.colors}>{preset.label}</Select.Option>)}
+          </Select.Root>
+          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
+        </Form.Field>
+      </Box.Content>
     </Box.Root>
   </Form.Root>
 </Layout>
