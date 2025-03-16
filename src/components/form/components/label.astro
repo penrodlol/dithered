@@ -7,4 +7,4 @@ type Props = Omit<ComponentProps<typeof Text<'label'>>, 'as'> & { tooltip?: stri
 const { variant, weight, size, tooltip, ...props } = Astro.props;
 ---
 
-<Text {...props} as="label" variant={variant ?? 'soft'} weight={weight ?? 'bold'} size={size ?? '2'}><slot /></Text>
+<Text {...props} as="label" {variant} weight={weight ?? 'bold'} size={size ?? '2'}><slot /></Text>

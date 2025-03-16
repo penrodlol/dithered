@@ -26,22 +26,25 @@ import { DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING_TYPES } from '
       </Box.Header>
       <Box.Content class="flex flex-col gap-6">
         <RadioGroup.Root name="ditheringType" defaultValue={DITHERING_TYPES[0]}>
-          <RadioGroup.Legend>Dithering Type</RadioGroup.Legend>
+          <RadioGroup.Label>Dithering Type</RadioGroup.Label>
           <RadioGroup.Items>
             {DITHERING_TYPES.map((type) => <RadioGroup.Item value={type}>{type}</RadioGroup.Item>)}
           </RadioGroup.Items>
+          <RadioGroup.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</RadioGroup.Description>
         </RadioGroup.Root>
         <Form.Field name="diffusionMap">
           <Form.Label>Diffusion Map</Form.Label>
           <Select.Root defaultValue={DITHERING_DIFUSSION_MAPS[0]}>
             {DITHERING_DIFUSSION_MAPS.map((map) => <Select.Option value={map}>{map}</Select.Option>)}
           </Select.Root>
+          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
         <Form.Field name="matrixSize">
           <Form.Label>Matrix Size</Form.Label>
           <Select.Root defaultValue={DITHERING_MATRICIES[0]}>
             {DITHERING_MATRICIES.map((matrix) => <Select.Option value={matrix}>{matrix}</Select.Option>)}
           </Select.Root>
+          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
       </Box.Content>
     </Box.Root>
