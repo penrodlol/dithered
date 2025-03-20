@@ -1,12 +1,17 @@
 ---
 import type { HTMLTag, Polymorphic } from 'astro/types';
-import { twMerge } from 'tailwind-merge';
+import { tv, type VariantProps } from 'tailwind-variants';
 
-type Props<Tag extends HTMLTag = 'section'> = Polymorphic<{ as: Tag }>;
+type Props<Tag extends HTMLTag = 'section'> = Polymorphic<{ as: Tag }> & BoxVariants;
 
-const { as: Tag = 'section', class: className, ...props } = Astro.props;
+export type BoxVariants = VariantProps<typeof boxVariants>;
+
+export const boxVariants = tv({
+  base: 'flex h-full flex-col',
+  variants: { variant: { elevated: 'rounded-border border-dashed shadow-2xl bg-gray-1/40' } },
+});
+
+const { as: Tag = 'section', class: className, variant, ...props } = Astro.props;
 ---
 
-<Tag {...props} class={twMerge('rounded-border flex h-full flex-col border-dashed shadow-2xl', className)}>
-  <slot />
-</Tag>
+<Tag {...props} class={boxVariants({ variant, className })}><slot /></Tag>

@@ -24,7 +24,7 @@ const { class: className, ...props } = Astro.props;
     <script is:inline set:text="document.documentElement.classList.add('[&_[x-cloak]]:hidden')" />
     <ClientRouter />
   </head>
-  <body class="mx-auto flex min-h-svh w-full max-w-screen-xl flex-col">
+  <body class="mx-auto flex min-h-svh w-full max-w-screen-2xl flex-col">
     <header></header>
     <main {...props} class={twMerge('flex-1 p-14', className)}><slot /></main>
   </body>
