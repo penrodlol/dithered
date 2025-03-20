@@ -64,21 +64,21 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
         </Form.Field>
         <Form.Field name="colorPalettePreset">
           <Form.Label>Color Palette Preset</Form.Label>
-          <Select.Root defaultValue={Object.keys(COLOR_PRESETS)[0]}>
-            {Object.keys(COLOR_PRESETS).map((preset) => <Select.Option value={preset}>{preset}</Select.Option>)}
+          <Select.Root defaultValue={COLOR_PRESETS.labels[0]}>
+            {COLOR_PRESETS.labels.map((preset) => <Select.Option value={preset}>{preset}</Select.Option>)}
           </Select.Root>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
         <ColorPickerGroup.Root
           name="colorPalette"
           control="select[name=colorPalettePreset]"
-          palettes={COLOR_PRESETS}
-          defaultPalette={COLOR_PRESETS['Black & White']}
+          palettes={COLOR_PRESETS.labelsMap}
+          defaultPalette={COLOR_PRESETS.labelsMap['Black & White']}
         >
           <ColorPickerGroup.Label>Color Palette</ColorPickerGroup.Label>
           <ColorPickerGroup.ItemsRoot>
             <ColorPickerGroup.Items />
-            <ColorPickerGroup.ItemAdd />
+            <ColorPickerGroup.ItemAdd controlValue={COLOR_PRESETS.labels[COLOR_PRESETS.labels.length - 1]} />
           </ColorPickerGroup.ItemsRoot>
           <ColorPickerGroup.Description>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
