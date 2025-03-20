@@ -1,0 +1,19 @@
+---
+import { renderSlot } from '@/libs/component';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'fieldset'> & { name: string; defaultValue?: Array<string> | undefined };
+
+const { class: className, name, defaultValue, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), {
+  'input[type="color"]': { name: () => name },
+});
+---
+
+<fieldset
+  {...props}
+  set:html={html}
+  class={twMerge('min-w-0', className)}
+  x-data={`{ colors: ${JSON.stringify(defaultValue ?? ['#000000'])} }`}
+/>

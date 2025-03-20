@@ -1,5 +1,6 @@
 ---
 import * as Box from '@/components/box';
+import * as ColorPickerGroup from '@/components/color-picker-group';
 import * as Form from '@/components/form';
 import * as RadioGroup from '@/components/radio-group';
 import * as Select from '@/components/select';
@@ -12,7 +13,7 @@ import { COLOR_PRESETS, DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING
 <Layout>
   <Text variant="soft" size="12" font="mono">DITHER.DIY</Text>
   <Text variant="soft" class="tracking-tight">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
-  <Form.Root class="mt-24 grid grid-cols-[55%_1fr] grid-rows-2 gap-10">
+  <Form.Root class="mt-24 grid grid-cols-[55%_45%] grid-rows-2 gap-10">
     <Box.Root class="row-span-2">
       <Box.Header>
         <Text font="mono">IMAGE UPLOAD/PREVIEW</Text>
@@ -66,6 +67,16 @@ import { COLOR_PRESETS, DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING
           </Select.Root>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
+        <ColorPickerGroup.Root name="colorPalette" defaultValue={['#000000', '#ffffff']}>
+          <ColorPickerGroup.Label>Color Palette</ColorPickerGroup.Label>
+          <ColorPickerGroup.ItemsRoot>
+            <ColorPickerGroup.Items />
+            <ColorPickerGroup.ItemAdd />
+          </ColorPickerGroup.ItemsRoot>
+          <ColorPickerGroup.Description>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </ColorPickerGroup.Description>
+        </ColorPickerGroup.Root>
       </Box.Content>
     </Box.Root>
   </Form.Root>
