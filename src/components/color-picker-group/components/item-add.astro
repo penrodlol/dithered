@@ -13,6 +13,6 @@ const { class: className, variant, size, icon, ...props } = Astro.props;
   variant={variant ?? 'gray-ghost'}
   size={size ?? 'icon'}
   icon={icon ?? 'plus'}
-  @click="colors.push('#000000')"
+  @click="activePalette.push('#000000')"
   class={twMerge('mr-2', className)}
 />

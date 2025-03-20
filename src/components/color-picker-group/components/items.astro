@@ -16,5 +16,5 @@ const { class: className, ...props } = Astro.props;
     className,
   )}
 >
-  <template x-for="(color, index) in colors"><Item :value="color" :data-index="index" /></template>
+  <template x-for="(color, index) in activePalette"><Item :value="color" :data-index="index" /></template>
 </div>

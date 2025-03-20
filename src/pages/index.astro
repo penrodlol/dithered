@@ -9,7 +9,7 @@ import * as Select from '@/components/select';
 import Switch from '@/components/switch.astro';
 import Text from '@/components/text.astro';
 import Layout from '@/layouts/layout.astro';
-import { COLOR_PRESETS, DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING_TYPES } from '@/libs/data';
+import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
 ---
 
 <Layout>
@@ -29,24 +29,24 @@ import { COLOR_PRESETS, DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING
         <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
       </Box.Header>
       <Box.Content class="flex flex-col gap-6">
-        <RadioGroup.Root name="ditheringType" defaultValue={DITHERING_TYPES[0]}>
+        <RadioGroup.Root name="ditheringType" defaultValue={TYPES[0]}>
           <RadioGroup.Label>Dithering Type</RadioGroup.Label>
           <RadioGroup.Items>
-            {DITHERING_TYPES.map((type) => <RadioGroup.Item value={type}>{type}</RadioGroup.Item>)}
+            {TYPES.map((type) => <RadioGroup.Item value={type}>{type}</RadioGroup.Item>)}
           </RadioGroup.Items>
           <RadioGroup.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</RadioGroup.Description>
         </RadioGroup.Root>
         <Form.Field name="diffusionMap">
           <Form.Label>Diffusion Map</Form.Label>
-          <Select.Root defaultValue={DITHERING_DIFUSSION_MAPS[0]}>
-            {DITHERING_DIFUSSION_MAPS.map((map) => <Select.Option value={map}>{map}</Select.Option>)}
+          <Select.Root defaultValue={DIFUSSION_MAPS[0]}>
+            {DIFUSSION_MAPS.map((map) => <Select.Option value={map}>{map}</Select.Option>)}
           </Select.Root>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
         <Form.Field name="matrixSize">
           <Form.Label>Matrix Size</Form.Label>
-          <Select.Root defaultValue={DITHERING_MATRICIES[0]}>
-            {DITHERING_MATRICIES.map((matrix) => <Select.Option value={matrix}>{matrix}</Select.Option>)}
+          <Select.Root defaultValue={MATRICIES[0]}>
+            {MATRICIES.map((matrix) => <Select.Option value={matrix}>{matrix}</Select.Option>)}
           </Select.Root>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
@@ -64,12 +64,17 @@ import { COLOR_PRESETS, DITHERING_DIFUSSION_MAPS, DITHERING_MATRICIES, DITHERING
         </Form.Field>
         <Form.Field name="colorPalettePreset">
           <Form.Label>Color Palette Preset</Form.Label>
-          <Select.Root defaultValue={COLOR_PRESETS[0]?.label}>
-            {COLOR_PRESETS.map((preset) => <Select.Option value={preset.colors}>{preset.label}</Select.Option>)}
+          <Select.Root defaultValue={Object.keys(COLOR_PRESETS)[0]}>
+            {Object.keys(COLOR_PRESETS).map((preset) => <Select.Option value={preset}>{preset}</Select.Option>)}
           </Select.Root>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
-        <ColorPickerGroup.Root name="colorPalette" defaultValue={['#000000', '#ffffff']}>
+        <ColorPickerGroup.Root
+          name="colorPalette"
+          control="select[name=colorPalettePreset]"
+          palettes={COLOR_PRESETS}
+          defaultPalette={COLOR_PRESETS['Black & White']}
+        >
           <ColorPickerGroup.Label>Color Palette</ColorPickerGroup.Label>
           <ColorPickerGroup.ItemsRoot>
             <ColorPickerGroup.Items />

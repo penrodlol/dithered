@@ -3,17 +3,25 @@ import { renderSlot } from '@/libs/component';
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = HTMLAttributes<'fieldset'> & { name: string; defaultValue?: Array<string> | undefined };
+type Props = HTMLAttributes<'fieldset'> & {
+  name: string;
+  palettes: Record<string, Array<string>>;
+  defaultPalette?: Array<string>;
+  control?: string;
+};
 
-const { class: className, name, defaultValue, ...props } = Astro.props;
-const html = renderSlot(await Astro.slots.render('default'), {
-  'input[type="color"]': { name: () => name },
-});
+const { class: className, name, palettes, defaultPalette, control, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), { 'input[type="color"]': { name: () => name } });
 ---
 
 <fieldset
   {...props}
   set:html={html}
   class={twMerge('min-w-0', className)}
-  x-data={`{ colors: ${JSON.stringify(defaultValue ?? ['#000000'])} }`}
+  x-init="control.addEventListener('change', (event) => activePalette = palettes[event.target.value])"
+  x-data={`{
+    control: document.querySelector("${control}"),
+    activePalette: ${JSON.stringify(defaultPalette)},
+    get palettes() { return ${JSON.stringify(palettes)} },
+  }`}
 />
