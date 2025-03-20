@@ -72,13 +72,14 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
         <ColorPickerGroup.Root
           name="colorPalette"
           control="select[name=colorPalettePreset]"
+          controlValueOnChange={COLOR_PRESETS.labels[COLOR_PRESETS.labels.length - 1]}
           palettes={COLOR_PRESETS.labelsMap}
           defaultPalette={COLOR_PRESETS.labelsMap['Black & White']}
         >
           <ColorPickerGroup.Label>Color Palette</ColorPickerGroup.Label>
           <ColorPickerGroup.ItemsRoot>
             <ColorPickerGroup.Items />
-            <ColorPickerGroup.ItemAdd controlValue={COLOR_PRESETS.labels[COLOR_PRESETS.labels.length - 1]} />
+            <ColorPickerGroup.ItemAdd />
           </ColorPickerGroup.ItemsRoot>
           <ColorPickerGroup.Description>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.

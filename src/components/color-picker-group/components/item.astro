@@ -24,7 +24,7 @@ const { class: className, ...props } = Astro.props;
     size="icon"
     icon="x"
     x-show="activePalette.length > 1"
-    @click="activePalette = activePalette.filter((_,index) => index !== Number($el.previousElementSibling.dataset.index))"
+    @click="activePalette = activePalette.filter((_,index) => index !== Number($el.previousElementSibling.dataset.index)); handleControlValue();"
     class:list={[
       'absolute -top-2 -right-2 size-5 rounded-full p-0 [&_svg]:size-3',
       'duration-300 not-group-hover:hidden group-hover:transition-[opacity,scale]',

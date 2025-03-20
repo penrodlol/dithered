@@ -8,9 +8,10 @@ type Props = HTMLAttributes<'fieldset'> & {
   palettes: Record<string, Array<string>>;
   defaultPalette?: Array<string>;
   control?: string;
+  controlValueOnChange?: string | undefined;
 };
 
-const { class: className, name, palettes, defaultPalette, control, ...props } = Astro.props;
+const { class: className, name, palettes, defaultPalette, control, controlValueOnChange, ...props } = Astro.props;
 const html = renderSlot(await Astro.slots.render('default'), { 'input[type="color"]': { name: () => name } });
 ---
 
@@ -21,7 +22,9 @@ const html = renderSlot(await Astro.slots.render('default'), { 'input[type="colo
   x-init="control.addEventListener('change', (event) => activePalette = palettes[event.target.value])"
   x-data={`{
     control: document.querySelector("${control}"),
+    controlValueOnChange: "${controlValueOnChange ?? ''}",
     activePalette: ${JSON.stringify(defaultPalette)},
     get palettes() { return ${JSON.stringify(palettes)} },
+    handleControlValue() { this.control && this.controlValueOnChange.length && (this.control.value = this.controlValueOnChange) }
   }`}
 />

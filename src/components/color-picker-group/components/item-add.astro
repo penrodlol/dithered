@@ -3,9 +3,9 @@ import Button from '@/components/button.astro';
 import type { ComponentProps } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = ComponentProps<typeof Button> & { controlValue?: string | undefined };
+type Props = ComponentProps<typeof Button>;
 
-const { class: className, variant, size, icon, controlValue, ...props } = Astro.props;
+const { class: className, variant, size, icon, ...props } = Astro.props;
 ---
 
 <Button
@@ -14,5 +14,5 @@ const { class: className, variant, size, icon, controlValue, ...props } = Astro.
   size={size ?? 'icon'}
   icon={icon ?? 'plus'}
   class={twMerge('mr-2', className)}
-  @click={`activePalette.push('#000000'); "${controlValue ?? ''}".length && (control.value = "${controlValue}")`}
+  @click={`activePalette.push('#000000'); handleControlValue();`}
 />
