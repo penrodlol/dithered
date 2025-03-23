@@ -1,16 +1,20 @@
 ---
-import IconComponent from '@/components/icon.astro';
+import Icon from '@/components/icon.astro';
 import type { ComponentProps } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = Omit<ComponentProps<typeof IconComponent>, 'name'> & { name?: string };
+type Props = Omit<ComponentProps<typeof Icon>, 'name'> & { name?: string };
 
 const { class: className, name, variant, ...props } = Astro.props;
 ---
 
-<IconComponent
+<Icon
   {...props}
   name={name ?? 'image-up'}
   variant={variant ?? 'soft'}
-  class={twMerge('size-14 opacity-50', className)}
+  class={twMerge(
+    'relative -z-10 size-24 opacity-50 motion-safe:transition-transform',
+    'group-hover/image-window-upload-root:scale-110',
+    className,
+  )}
 />

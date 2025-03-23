@@ -2,8 +2,10 @@
 import * as Box from '@/components/box';
 import Button from '@/components/button.astro';
 import * as ColorPickerGroup from '@/components/color-picker-group';
+import * as DataList from '@/components/datalist';
 import * as Form from '@/components/form';
 import Icon from '@/components/icon.astro';
+import * as ImageWindow from '@/components/image-window';
 import * as RadioGroup from '@/components/radio-group';
 import * as Select from '@/components/select';
 import Switch from '@/components/switch.astro';
@@ -21,7 +23,47 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
         <Text font="mono">IMAGE UPLOAD/PREVIEW</Text>
         <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
       </Box.Header>
-      <Box.Content />
+      <Box.Content>
+        <ImageWindow.Root>
+          <ImageWindow.UploadRoot accept="image/jpeg,image/png,image/webp,image/avif" class="h-120">
+            <ImageWindow.UploadIcon />
+            <ImageWindow.UploadPlaceholder>
+              <Text size="2">Drag and drop here or <Text as="span" size="2" underline>Browse</Text> files</Text>
+              <Text variant="soft" size="1" italic>Supports JPEG, PNG, WEBP, AVIF</Text>
+            </ImageWindow.UploadPlaceholder>
+            <ImageWindow.UploadImage />
+          </ImageWindow.UploadRoot>
+          <ImageWindow.PreviewRoot>
+            <ImageWindow.PreviewImage />
+          </ImageWindow.PreviewRoot>
+          <ImageWindow.Footer x-cloak x-show="src">
+            <Text font="mono" class="flex items-center gap-2"><Icon name="image" variant="soft" /> Image Details</Text>
+            <DataList.Root>
+              <DataList.Item>
+                <DataList.Key size="2">File Name</DataList.Key>
+                <DataList.Value size="2" x-text="name" />
+              </DataList.Item>
+              <DataList.Item>
+                <DataList.Key size="2">Image Type</DataList.Key>
+                <DataList.Value size="2" x-text="type" />
+              </DataList.Item>
+              <DataList.Item>
+                <DataList.Key size="2">Storage Size</DataList.Key>
+                <DataList.Value size="2" x-text="size" />
+              </DataList.Item>
+              <DataList.Item>
+                <DataList.Key size="2">Dimensions</DataList.Key>
+                <DataList.Value size="2" x-text="dimensions" />
+              </DataList.Item>
+              <DataList.Item>
+                <DataList.Key size="2">Last Modified</DataList.Key>
+                <DataList.Value size="2" x-text="lastModified" />
+              </DataList.Item>
+            </DataList.Root>
+            <ImageWindow.Download />
+          </ImageWindow.Footer>
+        </ImageWindow.Root>
+      </Box.Content>
     </Box.Root>
     <Box.Root variant="elevated">
       <Box.Header>

@@ -7,4 +7,10 @@ type Props = HTMLAttributes<'div'>;
 const { class: className, ...props } = Astro.props;
 ---
 
-<div {...props} class={twMerge('', className)}><slot /></div>
+<div
+  {...props}
+  x-data="{ reader: new FileReader(), src: null, name: null, type: null, size: null, lastModified: null, dimensions: null, ditheredImage: null }"
+  class={twMerge('flex size-full flex-col gap-4', className)}
+>
+  <slot />
+</div>
