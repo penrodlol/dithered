@@ -59,7 +59,7 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
       </Box.Header>
       <Box.Content class="flex flex-col gap-6">
         <Form.Field name="useColorPatette">
-          <Form.Label class="flex items-center gap-6">Use Color Palette: <Switch checked={false} /></Form.Label>
+          <Form.Label class="flex items-center gap-6">Use Color Palette: <Switch checked /></Form.Label>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
         <Form.Field name="colorPalettePreset">
@@ -88,9 +88,8 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
       </Box.Content>
     </Box.Root>
     <Box.Root class="col-start-2 items-end">
-      <Box.Content class="flex items-center gap-4 p-0 *:w-32">
-        <Button type="reset" variant="brand-outline">Reset</Button>
-        <Button type="submit"><Icon name="sparkles" />Generate</Button>
+      <Box.Content class="p-0 *:w-40">
+        <Button size="lg" type="submit"><Icon name="sparkles" />Generate</Button>
       </Box.Content>
     </Box.Root>
   </Form.Root>

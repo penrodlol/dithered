@@ -5,13 +5,17 @@ import { twMerge } from 'tailwind-merge';
 
 type Props = HTMLAttributes<'input'>;
 
-const { class: className, ...props } = Astro.props;
+const { class: className, name, ...props } = Astro.props;
 ---
 
 <div class="group relative flex shrink-0 items-center justify-center">
   <input
     {...props}
+    {name}
     type="color"
+    :value="activePalette[$el.dataset.index]"
+    :name="name + '-' + $el.dataset.index"
+    @change="handleControlValue"
     class={twMerge(
       'focusable size-8',
       '[&::-webkit-color-swatch]:rounded-border [&::-webkit-color-swatch-wrapper]:p-0',

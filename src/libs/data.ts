@@ -1,4 +1,4 @@
-export const TYPES = ['Ordered Dithering', 'Error Diffusion Dithering'];
+export const TYPES = ['Error Diffusion Dithering', 'Ordered Dithering'];
 export const DIFUSSION_MAPS = ['Floyd-Steinberg', 'Jarvis', 'Stucki', 'Burkes'];
 export const MATRICIES = ['2x2', '4x4', '8x8'];
 export const COLOR_PRESETS = {
