@@ -1,9 +1,6 @@
+export { default as Body } from './components/body.astro';
 export { default as Download } from './components/download.astro';
 export { default as Footer } from './components/footer.astro';
-export { default as PreviewImage } from './components/preview-image.astro';
-export { default as PreviewRoot } from './components/preview-root.astro';
+export { default as Placeholder } from './components/placeholder.astro';
+export { default as Rail } from './components/rail.astro';
 export { default as Root } from './components/root.astro';
-export { default as UploadIcon } from './components/upload-icon.astro';
-export { default as UploadImage } from './components/upload-image.astro';
-export { default as UploadPlaceholder } from './components/upload-placeholder.astro';
-export { default as UploadRoot } from './components/upload-root.astro';

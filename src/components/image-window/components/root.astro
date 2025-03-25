@@ -9,8 +9,9 @@ const { class: className, ...props } = Astro.props;
 
 <div
   {...props}
-  x-data="{ reader: new FileReader(), src: null, name: null, type: null, size: null, lastModified: null, dimensions: null, ditheredImage: null }"
-  class={twMerge('flex size-full flex-col gap-4', className)}
+  class={twMerge('flex size-full flex-col gap-8', className)}
+  style={{ '--width': '8px' }}
+  x-data="{ reader: new FileReader(), src: null, name: null, type: null, size: null, lastModified: null, dimensions: null }"
 >
   <slot />
 </div>

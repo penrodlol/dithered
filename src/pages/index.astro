@@ -25,17 +25,13 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
       </Box.Header>
       <Box.Content>
         <ImageWindow.Root>
-          <ImageWindow.UploadRoot accept="image/jpeg,image/png,image/webp,image/avif" class="h-120">
-            <ImageWindow.UploadIcon />
-            <ImageWindow.UploadPlaceholder>
+          <ImageWindow.Body accept="image/jpeg,image/png,image/webp,image/avif" class="h-120">
+            <ImageWindow.Placeholder>
               <Text size="2">Drag and drop here or <Text as="span" size="2" underline>Browse</Text> files</Text>
               <Text variant="soft" size="1" italic>Supports JPEG, PNG, WEBP, AVIF</Text>
-            </ImageWindow.UploadPlaceholder>
-            <ImageWindow.UploadImage />
-          </ImageWindow.UploadRoot>
-          <ImageWindow.PreviewRoot>
-            <ImageWindow.PreviewImage />
-          </ImageWindow.PreviewRoot>
+            </ImageWindow.Placeholder>
+            <ImageWindow.Rail />
+          </ImageWindow.Body>
           <ImageWindow.Footer x-cloak x-show="src">
             <Text font="mono" class="flex items-center gap-2"><Icon name="image" variant="soft" /> Image Details</Text>
             <DataList.Root>

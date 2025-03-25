@@ -1,0 +1,44 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'input'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div
+  class={twMerge(
+    'rounded-border bg-gray-3/30 relative isolate flex items-center justify-center overflow-hidden border-dashed shadow-2xl',
+    'has-[input:focus-visible]:ring-gray-8 has-[input:focus-visible]:ring',
+    className,
+  )}
+>
+  <slot />
+  <input
+    {...props}
+    x-show="!src"
+    type="file"
+    class="absolute inset-0 z-50 cursor-pointer rounded opacity-0"
+    @change={`
+      const file = $event.target.files?.[0];
+      if (!file) return;
+
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        src = event.target.result;
+        name = file.name;
+        type = file.type;
+        lastModified = new Date(file.lastModified).toLocaleString();
+        size = file.size > 1024 * 1024 ? (file.size / (1024 * 1024)).toFixed(2) + ' MB' : (file.size / 1024).toFixed(2) + ' KB';
+        $refs.uploadImage.onload = () => dimensions = $refs.uploadImage.width + 'x' + $refs.uploadImage.height;
+      };
+    `}
+  />
+  <div class="absolute inset-0 z-20 flex items-center justify-center p-4 [clip-path:inset(0_0_0_var(--width))]">
+    <img x-show="src" x-ref="uploadImage" :src="src" class="max-h-full rounded object-contain" />
+  </div>
+  <div class="absolute inset-0 z-10 flex items-center justify-center p-4">
+    <img x-show="src" x-ref="uploadImage" :src="src" class="max-h-full rounded object-contain" />
+  </div>
+</div>

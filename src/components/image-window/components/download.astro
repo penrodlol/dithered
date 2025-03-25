@@ -9,12 +9,6 @@ type Props = ComponentProps<typeof Button>;
 const { class: className, variant, ...props } = Astro.props;
 ---
 
-<Button
-  {...props}
-  x-cloak
-  :disabled="!ditheredImage"
-  variant={variant ?? 'brand-soft-outline'}
-  class={twMerge('mt-auto self-end', className)}
->
+<Button {...props} x-cloak variant={variant ?? 'brand-soft-outline'} class={twMerge('mt-auto self-end', className)}>
   <Icon name="download" /> Download
 </Button>
