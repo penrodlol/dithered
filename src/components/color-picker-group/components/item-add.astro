@@ -14,5 +14,12 @@ const { class: className, variant, size, icon, ...props } = Astro.props;
   size={size ?? 'icon'}
   icon={icon ?? 'plus'}
   class={twMerge('mr-2', className)}
-  @click={`activePalette.push('#000000'); handleControlValue();`}
+  @click={`
+    activePalette.push('#000000');
+    handleControlValue();
+    await $nextTick(() => {
+      $refs.colorPickerGroupItems.scrollTop = $refs.colorPickerGroupItems.scrollHeight;
+      $refs.colorPickerGroupItems.lastElementChild.querySelector('input').focus();
+    });
+  `}
 />

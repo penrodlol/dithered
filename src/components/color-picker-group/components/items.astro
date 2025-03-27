@@ -10,9 +10,9 @@ const { class: className, ...props } = Astro.props;
 
 <div
   {...props}
+  x-ref="colorPickerGroupItems"
   class={twMerge(
-    'scrollbar flex items-center gap-2 overflow-x-auto overflow-y-hidden',
-    'border-gray-6 size-full border-r border-dashed p-2',
+    'scrollbar border-gray-6 flex size-full flex-wrap items-center gap-2 overflow-y-auto border-r border-dashed p-2',
     className,
   )}
 >

@@ -17,7 +17,7 @@ const { class: className, name, ...props } = Astro.props;
     :name="name + '-' + $el.dataset.index"
     @change="handleControlValue"
     class={twMerge(
-      'focusable size-8',
+      'focusable size-8 rounded',
       '[&::-webkit-color-swatch]:rounded-border [&::-webkit-color-swatch-wrapper]:p-0',
       '[&::-moz-color-swatch]:rounded-border [&::-moz-focus-inner]:p-0',
       className,
@@ -31,9 +31,12 @@ const { class: className, name, ...props } = Astro.props;
     @click="activePalette = activePalette.filter((_,index) => index !== Number($el.previousElementSibling.dataset.index)); handleControlValue();"
     class:list={[
       'absolute -top-2 -right-2 size-5 rounded-full p-0 [&_svg]:size-3',
-      'duration-300 not-group-hover:hidden group-hover:transition-[opacity,scale]',
+      'group-hover:transition-all group-hover:transition-discrete',
       'group-hover:opacity-100 group-hover:starting:opacity-0',
       'group-hover:scale-100 group-hover:starting:scale-95',
+      'not-group-hover:hidden not-group-hover:transition-all not-group-hover:transition-discrete',
+      'not-group-hover:opacity-0 not-group-hover:starting:opacity-100',
+      'not-group-hover:scale-95 not-group-hover:starting:scale-100',
     ]}
   />
 </div>

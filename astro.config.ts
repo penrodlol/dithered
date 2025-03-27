@@ -12,10 +12,5 @@ export default defineConfig({
   adapter: vercel({ webAnalytics: { enabled: true }, imageService: true }),
   experimental: { responsiveImages: true },
   vite: { plugins: [tailwindcss()] },
-  integrations: [
-    alpine({ entrypoint: '/alpine.config.ts' }),
-    icon(),
-    sitemap(),
-    robotsTxt({ policy: [{ userAgent: '*', disallow: ['/404'] }] }),
-  ],
+  integrations: [alpine(), icon(), sitemap(), robotsTxt({ policy: [{ userAgent: '*', disallow: ['/404'] }] })],
 });
