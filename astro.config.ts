@@ -9,6 +9,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://dithered.diy',
   trailingSlash: 'never',
+  output: 'server',
   adapter: vercel({ webAnalytics: { enabled: true }, imageService: true }),
   experimental: { responsiveImages: true },
   vite: { plugins: [tailwindcss()] },

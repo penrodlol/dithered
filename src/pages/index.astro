@@ -12,19 +12,20 @@ import Switch from '@/components/switch.astro';
 import Text from '@/components/text.astro';
 import Layout from '@/layouts/layout.astro';
 import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
+import { actions } from 'astro:actions';
 ---
 
 <Layout>
   <Text variant="soft" size="12" font="mono">DITHER.DIY</Text>
   <Text variant="soft" class="tracking-tight">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
-  <Form.Root class="mt-16 grid grid-cols-[55%_45%] grid-rows-2 gap-10">
+  <Form.Root method="POST" action={actions.dither} class="mt-16 grid grid-cols-[55%_45%] grid-rows-2 gap-10">
     <Box.Root variant="elevated" class="row-span-2">
       <Box.Header>
         <Text font="mono">IMAGE UPLOAD/PREVIEW</Text>
         <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
       </Box.Header>
       <Box.Content>
-        <ImageWindow.Root>
+        <ImageWindow.Root name="image">
           <ImageWindow.Body accept="image/jpeg,image/png,image/webp,image/avif" class="h-120">
             <ImageWindow.Placeholder>
               <Text size="2">Drag and drop here or <Text as="span" size="2" underline>Browse</Text> files</Text>
@@ -96,7 +97,7 @@ import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
         <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
       </Box.Header>
       <Box.Content class="flex flex-col gap-6">
-        <Form.Field name="useColorPatette">
+        <Form.Field name="useColorPalette">
           <Form.Label class="flex items-center gap-6">Use Color Palette: <Switch checked /></Form.Label>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>

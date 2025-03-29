@@ -1,17 +1,18 @@
 ---
+import { renderSlot } from '@/libs/component';
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = HTMLAttributes<'div'>;
+type Props = HTMLAttributes<'div'> & { name: string };
 
-const { class: className, ...props } = Astro.props;
+const { class: className, name, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), { 'input[type=file]': { name: () => name } });
 ---
 
 <div
   {...props}
+  set:html={html}
   class={twMerge('flex size-full flex-col gap-8', className)}
   style={{ '--width': 'calc(var(--spacing)*2)' }}
   x-data="{ reader: new FileReader(), src: null, name: null, type: null, size: null, lastModified: null, dimensions: null }"
->
-  <slot />
-</div>
+/>

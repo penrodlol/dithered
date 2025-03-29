@@ -18,8 +18,8 @@ const { class: className, ...props } = Astro.props;
   <input
     {...props}
     type="color"
+    :name="name"
     :value="activePalette[$el.dataset.index] ?? '#000000'"
-    :name="name + '-' + $el.dataset.index"
     @change="activePalette[$el.dataset.index] = $el.value; handleControlValue();"
     class={twMerge(
       'focusable size-8 rounded',
