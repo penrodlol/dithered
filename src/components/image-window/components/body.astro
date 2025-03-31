@@ -36,7 +36,7 @@ const { class: className, ...props } = Astro.props;
     `}
   />
   <div class="absolute inset-0 z-20 flex items-center justify-center p-4 [clip-path:inset(0_0_0_var(--width))]">
-    <img x-show="src" x-ref="uploadImage" :src="src" class="max-h-full rounded object-contain" />
+    <img x-show="image" :src="image" class="max-h-full rounded object-contain" />
   </div>
   <div class="absolute inset-0 z-10 flex items-center justify-center p-4">
     <img x-show="src" x-ref="uploadImage" :src="src" class="max-h-full rounded object-contain" />

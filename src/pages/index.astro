@@ -11,21 +11,20 @@ import * as Select from '@/components/select';
 import Switch from '@/components/switch.astro';
 import Text from '@/components/text.astro';
 import Layout from '@/layouts/layout.astro';
-import { COLOR_PRESETS, DIFUSSION_MAPS, MATRICIES, TYPES } from '@/libs/data';
-import { actions } from 'astro:actions';
+import { COLOR_PRESETS, DIFUSSION_MAPS, MATRIX_SIZES, TYPES } from '@/libs/data';
 ---
 
 <Layout>
   <Text variant="soft" size="12" font="mono">DITHER.DIY</Text>
   <Text variant="soft" class="tracking-tight">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
-  <Form.Root method="POST" action={actions.dither} class="mt-16 grid grid-cols-[55%_45%] grid-rows-2 gap-10">
+  <Form.Root x-data="dither" @submit.prevent="submit" class="mt-16 grid grid-cols-[55%_45%] grid-rows-2 gap-10">
     <Box.Root variant="elevated" class="row-span-2">
       <Box.Header>
         <Text font="mono">IMAGE UPLOAD/PREVIEW</Text>
         <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
       </Box.Header>
       <Box.Content>
-        <ImageWindow.Root name="image">
+        <ImageWindow.Root name="image" fromSrc="image">
           <ImageWindow.Body accept="image/jpeg,image/png,image/webp,image/avif" class="h-120">
             <ImageWindow.Placeholder>
               <Text size="2">Drag and drop here or <Text as="span" size="2" underline>Browse</Text> files</Text>
@@ -84,8 +83,8 @@ import { actions } from 'astro:actions';
         </Form.Field>
         <Form.Field name="matrixSize">
           <Form.Label>Matrix Size</Form.Label>
-          <Select.Root defaultValue={MATRICIES[0]}>
-            {MATRICIES.map((matrix) => <Select.Option value={matrix}>{matrix}</Select.Option>)}
+          <Select.Root defaultValue={MATRIX_SIZES[0]}>
+            {MATRIX_SIZES.map((matrix) => <Select.Option value={matrix}>{matrix}</Select.Option>)}
           </Select.Root>
           <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
         </Form.Field>
