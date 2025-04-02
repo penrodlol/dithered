@@ -1,144 +1,42 @@
 export const TYPES = ['Error Diffusion Dithering', 'Ordered Dithering'] as const;
+
 // prettier-ignore
-export const DIFUSSION_MAPS = ['Floyd-Steinberg', 'Jarvis-Judice-Ninke', 'Stucki', 'Atkinson', 'Burkes', 'Sierra3', 'Sierra2', 'SierraLite'] as const;
-export const MATRIX_SIZES = ['2', '4', '8'] as const;
+export const ERROR_DIFFUSION = {
+  keys: ['floydSteinberg', 'jarvisJudiceNinke', 'stucki', 'atkinson', 'burkes', 'sierra2', 'sierra3', 'sierraLite'],
+  mapper: [{ key: 'floydSteinberg', label: 'Floyd-Steinberg' }, { key: 'jarvisJudiceNinke', label: 'Jarvis-Judice-Ninke' }, { key: 'stucki', label: 'Stucki' }, { key: 'atkinson', label: 'Atkinson' }, { key: 'burkes', label: 'Burkes' }, { key: 'sierra2', label: 'Sierra2' }, { key: 'sierra3', label: 'Sierra3' }, { key: 'sierraLite', label: 'Sierra Lite' }],
+  data: {
+    floydSteinberg: { divisor: 16, matrix: [[0, 0, 7], [3, 5, 1]] },
+    jarvisJudiceNinke: { divisor: 48, matrix: [[0, 0, 0, 7, 5], [3, 5, 7, 5, 3], [1, 3, 5, 3, 1]] },
+    stucki: { divisor: 42, matrix: [[0, 0, 0, 8, 4], [2, 4, 8, 4, 2], [1, 2, 4, 2, 1]] },
+    atkinson: { divisor: 8, matrix: [[0, 0, 1, 1], [1, 1, 1, 0], [0, 1, 0, 0]] },
+    burkes: { divisor: 32, matrix: [[0, 0, 0, 8, 4], [2, 4, 8, 4, 2]] },
+    sierra2: { divisor: 16, matrix: [[0, 0, 0, 4, 3], [1, 2, 3, 2, 1]] },
+    sierra3: { divisor: 32, matrix: [[0, 0, 0, 5, 3], [2, 4, 5, 4, 2], [0, 2, 3, 2, 0]] },
+    sierraLite: { divisor: 4, matrix: [[0, 0, 2], [1, 1, 0]] },
+  },
+} as const;
+
+// prettier-ignore
+export const ORDERED = {
+  keys: ['2', '4', '8'],
+  mapper: [{ key: '2', label: '2x2' }, { key: '4', label: '4x4' }, { key: '8', label: '8x8' }],
+  data: {
+    '2': { matrix: [[0, 2], [3, 1]] },
+    '4': { matrix: [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]] },
+    '8': { matrix: [[0, 32,  8, 40, 2, 34, 10, 42], [48, 16, 56, 24, 50, 18, 58, 26], [12, 44, 4, 36, 14, 46, 6, 38], [60, 28, 52, 20, 62, 30, 54, 22], [3, 35, 11, 43, 1, 33,  9, 41], [51, 19, 59, 27, 49, 17, 57, 25], [15, 47, 7, 39, 13, 45, 5, 37], [63, 31, 55, 23, 61, 29, 53, 21]] },
+  },
+} as const;
+
 // prettier-ignore
 export const COLOR_PRESETS = {
-  labels: ['Black & White', '4-Level Grayscale', '8-Level Grayscale', 'CGA', 'Game Boy', 'Commodore 64', 'Custom'],
-  labelsMap: {
-    'Black & White': ['#000000', '#ffffff'],
-    '4-Level Grayscale': ['#000000', '#555555', '#aaaaaa', '#ffffff'],
-    '8-Level Grayscale': ['#000000', '#1c1c1c', '#383838', '#555555', '#717171', '#8d8d8d', '#aaaaaa', '#c6c6c6', '#ffffff'],
-    'CGA': ['#000000', '#ff5555', '#55ff55', '#ffff55'],
-    'Game Boy': ['#000000', '#555555', '#aaaaaa', '#ffffff'],
-    'Commodore 64': ['#000000', '#68372b', '#70a4b2', '#6f3d86', '#588d43', '#352879', '#b8c76f', '#6f4f25', '#433900', '#9a6759', '#444444', '#6c6c6c', '#9ad284', '#6c5eb5', '#959595', '#9a6759'],
-    'Custom': [],
-  }
-};
-
-export const MATRIX_SIZES_MAPPER = {
-  '2': [
-    [0, 128],
-    [192, 64],
-  ],
-  '4': [
-    [0, 128, 32, 160],
-    [192, 64, 224, 96],
-    [48, 176, 16, 144],
-    [240, 112, 208, 80],
-  ],
-  '8': [
-    [0, 128, 32, 160, 8, 136, 40, 168],
-    [192, 64, 224, 96, 200, 72, 232, 104],
-    [48, 176, 16, 144, 56, 184, 24, 152],
-    [240, 112, 208, 80, 248, 120, 216, 88],
-    [12, 140, 44, 172, 4, 132, 36, 164],
-    [204, 76, 236, 108, 196, 68, 228, 100],
-    [60, 188, 28, 156, 52, 180, 20, 148],
-    [252, 124, 220, 92, 244, 116, 212, 84],
-  ],
-};
-
-export const MATRICIES = {
-  'Floyd-Steinberg': {
-    divisor: 16,
-    matrix: [
-      { dx: 1, dy: 0, factor: 7 },
-      { dx: -1, dy: 1, factor: 3 },
-      { dx: 0, dy: 1, factor: 5 },
-      { dx: 1, dy: 1, factor: 1 },
-    ],
+  mapper: [{ key: 'blackAndWhite', label: 'Black & White' }, { key: 'fourLevelGrayscale', label: '4-Level Grayscale' }, { key: 'eightLevelGrayscale', label: '8-Level Grayscale' }, { key: 'cga', label: 'CGA' }, { key: 'gameBoy', label: 'Game Boy' }, { key: 'commodore64', label: 'Commodore 64' }, { key: 'custom', label: 'Custom' }],
+  data: {
+    blackAndWhite: ['#000000', '#ffffff'],
+    fourLevelGrayscale: ['#000000', '#555555', '#aaaaaa', '#ffffff'],
+    eightLevelGrayscale: ['#000000', '#1c1c1c', '#383838', '#555555', '#717171', '#8d8d8d', '#aaaaaa', '#c6c6c6', '#ffffff'],
+    cga: ['#000000', '#ff5555', '#55ff55', '#ffff55'],
+    gameBoy: ['#000000', '#555555', '#aaaaaa', '#ffffff'],
+    commodore64: ['#000000', '#68372b', '#70a4b2', '#6f3d86', '#588d43', '#352879', '#b8c76f', '#6f4f25', '#433900', '#9a6759', '#444444', '#6c6c6c', '#9ad284', '#6c5eb5', '#959595', '#9a6759'],
+    custom: [],
   },
-  'Jarvis-Judice-Ninke': {
-    divisor: 48,
-    matrix: [
-      { dx: 1, dy: 0, factor: 7 },
-      { dx: 2, dy: 0, factor: 5 },
-      { dx: -2, dy: 1, factor: 3 },
-      { dx: -1, dy: 1, factor: 5 },
-      { dx: 0, dy: 1, factor: 7 },
-      { dx: 1, dy: 1, factor: 5 },
-      { dx: 2, dy: 1, factor: 3 },
-      { dx: -2, dy: 2, factor: 1 },
-      { dx: -1, dy: 2, factor: 3 },
-      { dx: 0, dy: 2, factor: 5 },
-      { dx: 1, dy: 2, factor: 3 },
-      { dx: 2, dy: 2, factor: 1 },
-    ],
-  },
-  Stucki: {
-    divisor: 42,
-    matrix: [
-      { dx: 1, dy: 0, factor: 8 },
-      { dx: 2, dy: 0, factor: 4 },
-      { dx: -2, dy: 1, factor: 2 },
-      { dx: -1, dy: 1, factor: 4 },
-      { dx: 0, dy: 1, factor: 8 },
-      { dx: 1, dy: 1, factor: 4 },
-      { dx: 2, dy: 1, factor: 2 },
-      { dx: -2, dy: 2, factor: 1 },
-      { dx: -1, dy: 2, factor: 2 },
-      { dx: 0, dy: 2, factor: 4 },
-      { dx: 1, dy: 2, factor: 2 },
-      { dx: 2, dy: 2, factor: 1 },
-    ],
-  },
-  Atkinson: {
-    divisor: 8,
-    matrix: [
-      { dx: 1, dy: 0, factor: 1 },
-      { dx: 2, dy: 0, factor: 1 },
-      { dx: -1, dy: 1, factor: 1 },
-      { dx: 0, dy: 1, factor: 1 },
-      { dx: 1, dy: 1, factor: 1 },
-      { dx: 0, dy: 2, factor: 1 },
-    ],
-  },
-  Burkes: {
-    divisor: 32,
-    matrix: [
-      { dx: 1, dy: 0, factor: 8 },
-      { dx: 2, dy: 0, factor: 4 },
-      { dx: -2, dy: 1, factor: 2 },
-      { dx: -1, dy: 1, factor: 4 },
-      { dx: 0, dy: 1, factor: 8 },
-      { dx: 1, dy: 1, factor: 4 },
-      { dx: 2, dy: 1, factor: 2 },
-    ],
-  },
-  Sierra3: {
-    divisor: 32,
-    matrix: [
-      { dx: 1, dy: 0, factor: 5 },
-      { dx: 2, dy: 0, factor: 3 },
-      { dx: -2, dy: 1, factor: 2 },
-      { dx: -1, dy: 1, factor: 4 },
-      { dx: 0, dy: 1, factor: 5 },
-      { dx: 1, dy: 1, factor: 4 },
-      { dx: 2, dy: 1, factor: 2 },
-      { dx: -1, dy: 2, factor: 2 },
-      { dx: 0, dy: 2, factor: 3 },
-      { dx: 1, dy: 2, factor: 2 },
-    ],
-  },
-  Sierra2: {
-    divisor: 16,
-    matrix: [
-      { dx: 1, dy: 0, factor: 4 },
-      { dx: 2, dy: 0, factor: 3 },
-      { dx: -2, dy: 1, factor: 1 },
-      { dx: -1, dy: 1, factor: 2 },
-      { dx: 0, dy: 1, factor: 3 },
-      { dx: 1, dy: 1, factor: 2 },
-      { dx: 2, dy: 1, factor: 1 },
-    ],
-  },
-  SierraLite: {
-    divisor: 4,
-    matrix: [
-      { dx: 1, dy: 0, factor: 2 },
-      { dx: -1, dy: 1, factor: 1 },
-      { dx: 0, dy: 1, factor: 1 },
-    ],
-  },
-};
+} as const;

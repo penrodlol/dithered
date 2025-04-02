@@ -4,8 +4,8 @@ import { twMerge } from 'tailwind-merge';
 
 type Props = HTMLAttributes<'fieldset'> & {
   name: string;
-  palettes: Record<string, Array<string>>;
-  defaultPalette?: Array<string>;
+  palettes: Record<string, ReadonlyArray<string>>;
+  defaultPalette?: ReadonlyArray<string>;
   control?: string;
   controlValueOnChange?: string | undefined;
 };
