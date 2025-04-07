@@ -1,0 +1,44 @@
+---
+import Icon from '@/components/icon.astro';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'input'> & { defaultValue?: string };
+
+const { class: className, defaultValue, ...props } = Astro.props;
+---
+
+<input
+  {...props}
+  x-cloak
+  x-show="src"
+  type="range"
+  min="0"
+  max="100"
+  value={defaultValue ?? 0}
+  @input="useRailFallback && $root.style.setProperty('--image-box-rail-position', getRailFallbackPosition($el))"
+  @pointerdown="useRailFallback && $root.style.setProperty('--image-box-rail-position', getRailFallbackPosition($el))"
+  @resize.window="useRailFallback && $root.style.setProperty('--image-box-rail-position', getRailFallbackPosition($el))"
+  class={twMerge(
+    'absolute inset-0 z-30 cursor-grab overflow-hidden opacity-0 active:cursor-grabbing',
+    '[&::-webkit-slider-thumb]:[view-timeline:--image-box-rail-control_inline]',
+    className,
+  )}
+/>
+
+<div
+  x-cloak
+  x-show="src"
+  role="presentation"
+  class:list={[
+    'before:bg-gray-6/50 before:absolute before:inset-0 before:z-40 before:w-0.5 before:-translate-x-1/2 before:content-[""]',
+    'before:translate-x-[calc(-50%+(var(--image-box-rail-position,0)*1cqi))]',
+    'after:rounded-border after:bg-gray-1 after:absolute after:top-1/2 after:z-40 after:h-6 after:w-4 after:-translate-1/2',
+    'after:[translate:calc(-50%+(var(--image-box-rail-position,0)*1cqi))_-50%]',
+  ]}
+>
+  <Icon
+    name="grip-vertical"
+    class="absolute top-1/2 z-50 size-3 -translate-1/2 [translate:calc(-50%+(var(--image-box-rail-position,0)*1cqi))_-50%]"
+  />
+</div>

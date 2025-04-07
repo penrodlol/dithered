@@ -10,28 +10,22 @@ const image = z
   .refine((file) => ['image/jpeg', 'image/png', 'image/webp', 'image/avif'].includes(file.type))
   .transform(async (file) => Buffer.from(await file.arrayBuffer()))
   .transform(async (buffer) => sharp(buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true }));
-const ditheringType = z.enum(data.TYPES);
-const diffusionMap = z.enum(data.ERROR_DIFFUSION.keys).optional();
-const matrixSize = z.enum(data.ORDERED.keys).optional();
-const useColorPalette = z.coerce.boolean().optional();
+const algorithm = z.enum(data.ALGORITHMS.keys).transform((value) => data.ALGORITHMS.data[value]);
 const colorPalette = z.array(z.string().regex(/^#[0-9A-Fa-f]{6}$/)).optional();
-export const schema = z.object({ image, ditheringType, diffusionMap, matrixSize, useColorPalette, colorPalette });
+export const schema = z.object({ image, algorithm, colorPalette });
 
 export const POST: APIRoute = async ({ request }) => {
   const unsafeFormData = await request.formData();
   const safeFormData = await schema.safeParseAsync({
     image: unsafeFormData.get('image'),
-    ditheringType: unsafeFormData.get('ditheringType'),
-    diffusionMap: unsafeFormData.get('diffusionMap'),
-    matrixSize: unsafeFormData.get('matrixSize'),
-    useColorPalette: unsafeFormData.get('useColorPalette'),
+    algorithm: unsafeFormData.get('algorithm'),
     colorPalette: unsafeFormData.getAll('colorPalette'),
   });
   if (!safeFormData.success) return new Response(JSON.stringify({}), { status: 400 });
   if (safeFormData.data.image.info.channels !== 4) return new Response(JSON.stringify({}), { status: 400 });
 
   const image =
-    safeFormData.data.ditheringType === 'Error Diffusion Dithering'
+    safeFormData.data.algorithm.type === 'Error Diffusion'
       ? await applyErrorDiffusionDithering(safeFormData.data)
       : await applyOrderedDithering(safeFormData.data);
 

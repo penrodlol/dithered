@@ -1,0 +1,39 @@
+---
+import { renderSlot } from '@/libs/component';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'div'> & { name: string };
+
+const { class: className, name, ...props } = Astro.props;
+const html = renderSlot(await Astro.slots.render('default'), { 'input[type=file]': { name: () => name } });
+---
+
+<div
+  {...props}
+  set:html={html}
+  class={twMerge(
+    '[container-type:inline-size] relative isolate [timeline-scope:--image-box-rail-control]',
+    'animate-[image-box-rail-move-position_both_linear_reverse]',
+    '[animation-range:contain] [animation-timeline:--image-box-rail-control]',
+    className,
+  )}
+  x-data="{
+    reader: new FileReader(),
+    src: null,
+    name: null,
+    type: null,
+    size: null,
+    lastModified: null,
+    dimensions: null,
+    useRailFallback: !CSS.supports('(animation-timeline: view()) and (animation-range: 0 100%)'),
+    getRailFallbackPosition(el) { return Math.round(((el.value - el.min) / (el.max - el.min)) * 100); }
+  }"
+/>
+
+<style>
+  /* prettier-ignore */
+  @property --image-box-rail-position { inherits: true; syntax: '<integer>'; initial-value: 0; }
+  /* prettier-ignore */
+  @keyframes image-box-rail-move-position { to { --image-box-rail-position : 100; } }
+</style>

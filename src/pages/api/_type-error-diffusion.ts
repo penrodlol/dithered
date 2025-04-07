@@ -1,16 +1,15 @@
-import { ERROR_DIFFUSION } from '@/libs/data';
 import sharp from 'sharp';
 import z from 'zod';
 import { getNearestColor } from './_util-color';
 import type { schema } from './dither';
 
 export default async function (data: z.infer<typeof schema>) {
-  if (!data.diffusionMap) throw new Error('Diffusion map is required.');
+  if (!data.algorithm.divisor) throw new Error('Divisor is required.');
 
   const width = data.image.info.width;
   const height = data.image.info.height;
   const channels = data.image.info.channels;
-  const { matrix, divisor } = ERROR_DIFFUSION.data[data.diffusionMap];
+  const { matrix, divisor } = data.algorithm;
   const outputBuffer = Buffer.alloc(data.image.data.length);
   const redChannel = new Array(width * height) as [number, number, number];
   const greenChannel = new Array(width * height) as [number, number, number];

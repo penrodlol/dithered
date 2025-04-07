@@ -10,8 +10,8 @@ const { class: className, variant, weight, size, ...props } = Astro.props;
 
 <Text
   {...props}
-  as="label"
   {variant}
+  as="label"
   weight={weight ?? 'bold'}
   size={size ?? '2'}
   class={twMerge('max-w-max select-none', className)}

@@ -14,7 +14,7 @@ const html = renderSlot(await Astro.slots.render('default'), {
 <div
   class={buttonVariants({
     size,
-    variant: variant ?? 'brand-soft-outline',
+    variant: variant ?? 'gray-soft-outline',
     class: [
       'relative p-0 after:absolute after:top-1/2 after:right-4 after:-translate-y-1/2 after:z-10 after:size-4 after:content-[""]',
       'after:bg-current after:[mask-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZXZyb24tZG93biI+PHBhdGggZD0ibTYgOSA2IDYgNi02Ii8+PC9zdmc+")] after:[mask-size:cover]',

@@ -10,12 +10,12 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 export const buttonVariants = tv({
   base: [
     'inline-flex items-center justify-center gap-2 px-4 whitespace-nowrap rounded focusable',
-    'disabled:opacity-50 disabled:pointer-events-none motion-safe:transition-colors ',
+    'disabled:opacity-50 disabled:pointer-events-none motion-safe:transition-colors',
   ],
   defaultVariants: { variant: 'brand-solid', size: 'md' },
   variants: {
     variant: {
-      'gray-solid': 'bg-gray-9 text-gray-contrast border-none hover:bg-gray-10',
+      'gray-solid': 'bg-gray-9 text-gray-contrast border-none hover:bg-gray-10 inset-shadow-sm inset-shadow-white/60',
       'gray-soft': 'bg-gray-3 text-gray-11 border-none hover:bg-gray-4',
       'gray-soft-outline': 'bg-gray-3 text-gray-11 border border-gray-7 hover:border-gray-8',
       'gray-outline': 'bg-transparent text-gray-11 border border-gray-7 hover:bg-gray-3',
@@ -26,13 +26,12 @@ export const buttonVariants = tv({
       'brand-outline': 'bg-transparent text-brand-11 border border-brand-7 hover:bg-brand-3',
       'brand-ghost': 'bg-transparent text-brand-11 border-none hover:bg-brand-3 hover:text-brand-12',
     },
-    size: {
-      sm: 'h-7 text-2xs',
-      md: 'h-8 text-xs',
-      lg: 'h-9 text-sm',
-      icon: 'size-8',
-    },
+    size: { sm: 'h-7 text-2xs', md: 'h-9 text-xs', lg: 'h-10 text-sm', icon: 'size-8' },
   },
+  compoundVariants: [
+    { variant: ['gray-soft', 'gray-soft-outline'], class: 'inset-shadow-sm inset-shadow-white/20' },
+    { variant: ['gray-outline', 'gray-ghost'], class: 'hover:inset-shadow-sm hover:inset-shadow-white/20' },
+  ],
 });
 
 const { class: className, type, variant, size, icon, ...props } = Astro.props;

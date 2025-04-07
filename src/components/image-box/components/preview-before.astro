@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'img'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div
+  {...props}
+  class={twMerge(
+    'absolute inset-0 z-10 flex items-center justify-center p-10',
+    '[clip-path:inset(0_0_0_calc(var(--image-box-rail-position,0)*1%))]',
+    className,
+  )}
+>
+  <img
+    x-cloak
+    x-show="src"
+    x-ref="previewBefore"
+    :src="src"
+    class:list={[
+      'max-h-full rounded object-contain',
+      'opacity-100 duration-200 motion-safe:transition-opacity starting:opacity-0',
+    ]}
+  />
+</div>

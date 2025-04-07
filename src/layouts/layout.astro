@@ -1,8 +1,8 @@
 ---
 import '@/tailwind.css';
 import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
 import type { HTMLAttributes } from 'astro/types';
-import { ClientRouter } from 'astro:transitions';
 import { twMerge } from 'tailwind-merge';
 
 type Props = HTMLAttributes<'main'>;
@@ -11,7 +11,7 @@ const { class: className, ...props } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="bg-gray-2 text-gray-12 scrollbar selection:bg-brand-12 selection:text-brand-1 antialiased">
+<html lang="en" class="bg-gray-1 text-gray-12 scrollbar selection:bg-brand-12 selection:text-brand-1 antialiased">
   <head>
     <title>Dithered</title>
     <meta charset="UTF-8" />
@@ -22,10 +22,9 @@ const { class: className, ...props } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script is:inline set:text="document.documentElement.classList.add('[&_[x-cloak]]:hidden')" />
-    <ClientRouter />
   </head>
-  <body class="mx-auto flex min-h-svh w-full max-w-screen-2xl flex-col">
-    <header></header>
-    <main {...props} class={twMerge('flex-1 p-14', className)}><slot /></main>
+  <body class="flex min-h-svh flex-col">
+    <header class="border-gray-6 h-14 border-b border-dashed"></header>
+    <main {...props} class={twMerge('flex-1', className)}><slot /></main>
   </body>
 </html>

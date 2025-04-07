@@ -1,134 +1,51 @@
 ---
-import * as Box from '@/components/box';
 import Button from '@/components/button.astro';
-import * as ColorPickerGroup from '@/components/color-picker-group';
-import * as DataList from '@/components/datalist';
 import * as Form from '@/components/form';
+import * as Grid from '@/components/grid';
 import Icon from '@/components/icon.astro';
-import * as ImageWindow from '@/components/image-window';
-import * as RadioGroup from '@/components/radio-group';
+import * as ImageBox from '@/components/image-box';
 import * as Select from '@/components/select';
-import Switch from '@/components/switch.astro';
 import Text from '@/components/text.astro';
 import Layout from '@/layouts/layout.astro';
 import * as data from '@/libs/data';
 ---
 
 <Layout>
-  <Text variant="soft" size="12" font="mono">DITHER.DIY</Text>
-  <Text variant="soft" class="tracking-tight">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
-  <Form.Root x-data="dither" @submit.prevent="submit" class="mt-16 grid grid-cols-[55%_45%] grid-rows-2 gap-10">
-    <Box.Root variant="elevated" class="row-span-2">
-      <Box.Header>
-        <Text font="mono">IMAGE UPLOAD/PREVIEW</Text>
-        <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
-      </Box.Header>
-      <Box.Content>
-        <ImageWindow.Root name="image" fromSrc="image">
-          <ImageWindow.Body accept="image/jpeg,image/png,image/webp,image/avif" class="h-120">
-            <ImageWindow.Placeholder>
+  <Form.Root>
+    <Grid.Root>
+      <Grid.Row class="lg:grid-cols-[1fr_minmax(auto,var(--container-4xl))_minmax(var(--container-md),1fr)]">
+        <Grid.Column class="border-r-0 lg:col-start-2">
+          <ImageBox.Root name="image" class="h-120">
+            <ImageBox.Upload accept="image/jpeg,image/png,image/webp,image/avif">
               <Text size="2">Drag and drop here or <Text as="span" size="2" underline>Browse</Text> files</Text>
               <Text variant="soft" size="1" italic>Supports JPEG, PNG, WEBP, AVIF</Text>
-            </ImageWindow.Placeholder>
-            <ImageWindow.Rail />
-          </ImageWindow.Body>
-          <ImageWindow.Footer x-cloak x-show="src">
-            <Text font="mono" class="flex items-center gap-2"><Icon name="image" variant="soft" /> Image Details</Text>
-            <DataList.Root>
-              <DataList.Item>
-                <DataList.Key size="2">File Name</DataList.Key>
-                <DataList.Value size="2" x-text="name" />
-              </DataList.Item>
-              <DataList.Item>
-                <DataList.Key size="2">Image Type</DataList.Key>
-                <DataList.Value size="2" x-text="type" />
-              </DataList.Item>
-              <DataList.Item>
-                <DataList.Key size="2">Storage Size</DataList.Key>
-                <DataList.Value size="2" x-text="size" />
-              </DataList.Item>
-              <DataList.Item>
-                <DataList.Key size="2">Dimensions</DataList.Key>
-                <DataList.Value size="2" x-text="dimensions" />
-              </DataList.Item>
-              <DataList.Item>
-                <DataList.Key size="2">Last Modified</DataList.Key>
-                <DataList.Value size="2" x-text="lastModified" />
-              </DataList.Item>
-            </DataList.Root>
-            <ImageWindow.Download />
-          </ImageWindow.Footer>
-        </ImageWindow.Root>
-      </Box.Content>
-    </Box.Root>
-    <Box.Root variant="elevated">
-      <Box.Header>
-        <Text font="mono">DITHERING SETTINGS</Text>
-        <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
-      </Box.Header>
-      <Box.Content class="flex flex-col gap-6">
-        <RadioGroup.Root name="ditheringType" defaultValue={data.TYPES[0]}>
-          <RadioGroup.Label>Dithering Type</RadioGroup.Label>
-          <RadioGroup.Items>
-            {data.TYPES.map((type) => <RadioGroup.Item value={type}>{type}</RadioGroup.Item>)}
-          </RadioGroup.Items>
-          <RadioGroup.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</RadioGroup.Description>
-        </RadioGroup.Root>
-        <Form.Field name="diffusionMap">
-          <Form.Label>Error Diffusion Algorithm</Form.Label>
-          <Select.Root defaultValue={data.ERROR_DIFFUSION.keys[0]}>
-            {data.ERROR_DIFFUSION.mapper.map((map) => <Select.Option value={map.key}>{map.label}</Select.Option>)}
-          </Select.Root>
-          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
-        </Form.Field>
-        <Form.Field name="matrixSize">
-          <Form.Label>Matrix Size</Form.Label>
-          <Select.Root defaultValue={data.ORDERED.keys[0]}>
-            {data.ORDERED.mapper.map((map) => <Select.Option value={map.key}>{map.label}</Select.Option>)}
-          </Select.Root>
-          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
-        </Form.Field>
-      </Box.Content>
-    </Box.Root>
-    <Box.Root variant="elevated">
-      <Box.Header>
-        <Text font="mono">COLOR SETTINGS</Text>
-        <Text variant="soft" size="2">Lorem ipsum dolor sit amet consectetur elit.</Text>
-      </Box.Header>
-      <Box.Content class="flex flex-col gap-6">
-        <Form.Field name="useColorPalette">
-          <Form.Label class="flex items-center gap-6">Use Color Palette: <Switch checked /></Form.Label>
-          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
-        </Form.Field>
-        <Form.Field name="colorPalettePreset">
-          <Form.Label>Color Palette Preset</Form.Label>
-          <Select.Root defaultValue={data.COLOR_PRESETS.mapper[0].key}>
-            {data.COLOR_PRESETS.mapper.map((map) => <Select.Option value={map.key}>{map.label}</Select.Option>)}
-          </Select.Root>
-          <Form.Description>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Form.Description>
-        </Form.Field>
-        <ColorPickerGroup.Root
-          name="colorPalette"
-          control="select[name=colorPalettePreset]"
-          controlValueOnChange={data.COLOR_PRESETS.mapper[data.COLOR_PRESETS.mapper.length - 1]?.key}
-          palettes={data.COLOR_PRESETS.data}
-          defaultPalette={data.COLOR_PRESETS.data.blackAndWhite}
-        >
-          <ColorPickerGroup.Label>Color Palette</ColorPickerGroup.Label>
-          <ColorPickerGroup.ItemsRoot>
-            <ColorPickerGroup.Items />
-            <ColorPickerGroup.ItemAdd />
-          </ColorPickerGroup.ItemsRoot>
-          <ColorPickerGroup.Description>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </ColorPickerGroup.Description>
-        </ColorPickerGroup.Root>
-      </Box.Content>
-    </Box.Root>
-    <Box.Root class="col-start-2 items-end">
-      <Box.Content class="p-0 *:w-40">
-        <Button size="lg" type="submit"><Icon name="sparkles" />Generate</Button>
-      </Box.Content>
-    </Box.Root>
+            </ImageBox.Upload>
+            <ImageBox.PreviewBefore />
+            <ImageBox.PreviewAfter />
+            <ImageBox.Rail />
+          </ImageBox.Root>
+        </Grid.Column>
+        <Grid.Column class="flex flex-col gap-10 border-r-0 p-10 not-lg:border-t lg:col-start-3">
+          <Form.Field name="Algorithm">
+            <Form.Label>Dithering Algorithm</Form.Label>
+            <Select.Root defaultValue={data.ALGORITHMS.keys[0]}>
+              {data.ALGORITHMS.mapper.map((map) => <Select.Option value={map.key}>{map.label}</Select.Option>)}
+            </Select.Root>
+            <Form.Description>Lorem ipsum dolor sit amet consectetur elit.</Form.Description>
+          </Form.Field>
+          <Form.Field name="colorPalettePreset">
+            <Form.Label>Color Palette Preset</Form.Label>
+            <Select.Root>
+              {data.COLOR_PRESETS.mapper.map((map) => <Select.Option value={map.key}>{map.label}</Select.Option>)}
+            </Select.Root>
+            <Form.Description>Lorem ipsum dolor sit amet consectetur elit.</Form.Description>
+          </Form.Field>
+          <Button variant="gray-solid" class="mt-auto w-36 self-end"><Icon name="sparkles" /> Generate</Button>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row class="lg:grid-cols-[1fr_minmax(auto,var(--container-4xl))_minmax(var(--container-md),1fr)]">
+        <Grid.Column class="p-10 lg:col-start-2" />
+      </Grid.Row>
+    </Grid.Root>
   </Form.Root>
 </Layout>

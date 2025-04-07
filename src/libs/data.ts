@@ -1,29 +1,31 @@
-export const TYPES = ['Error Diffusion Dithering', 'Ordered Dithering'] as const;
-
 // prettier-ignore
-export const ERROR_DIFFUSION = {
-  keys: ['floydSteinberg', 'jarvisJudiceNinke', 'stucki', 'atkinson', 'burkes', 'sierra2', 'sierra3', 'sierraLite'],
-  mapper: [{ key: 'floydSteinberg', label: 'Floyd-Steinberg' }, { key: 'jarvisJudiceNinke', label: 'Jarvis-Judice-Ninke' }, { key: 'stucki', label: 'Stucki' }, { key: 'atkinson', label: 'Atkinson' }, { key: 'burkes', label: 'Burkes' }, { key: 'sierra2', label: 'Sierra2' }, { key: 'sierra3', label: 'Sierra3' }, { key: 'sierraLite', label: 'Sierra Lite' }],
+export const ALGORITHMS = {
+  keys: ['floydSteinberg', 'jarvisJudiceNinke', 'stucki', 'atkinson', 'burkes', 'sierra2', 'sierra3', 'sierraLite', 'bayer2', 'bayer4', 'bayer8' ],
+  mapper: [
+    { key: 'floydSteinberg', label: 'Floyd-Steinberg' },
+    { key: 'jarvisJudiceNinke', label: 'Jarvis-Judice-Ninke' },
+    { key: 'stucki', label: 'Stucki' },
+    { key: 'atkinson', label: 'Atkinson' },
+    { key: 'burkes', label: 'Burkes' },
+    { key: 'sierra2', label: 'Sierra2' },
+    { key: 'sierra3', label: 'Sierra3' },
+    { key: 'sierraLite', label: 'Sierra Lite' },
+    { key: 'bayer2', label: 'Bayer 2x2' },
+    { key: 'bayer4', label: 'Bayer 4x4' },
+    { key: 'bayer8', label: 'Bayer 8x8' },
+  ],
   data: {
-    floydSteinberg: { divisor: 16, matrix: [[0, 0, 7], [3, 5, 1]] },
-    jarvisJudiceNinke: { divisor: 48, matrix: [[0, 0, 0, 7, 5], [3, 5, 7, 5, 3], [1, 3, 5, 3, 1]] },
-    stucki: { divisor: 42, matrix: [[0, 0, 0, 8, 4], [2, 4, 8, 4, 2], [1, 2, 4, 2, 1]] },
-    atkinson: { divisor: 8, matrix: [[0, 0, 1, 1], [1, 1, 1, 0], [0, 1, 0, 0]] },
-    burkes: { divisor: 32, matrix: [[0, 0, 0, 8, 4], [2, 4, 8, 4, 2]] },
-    sierra2: { divisor: 16, matrix: [[0, 0, 0, 4, 3], [1, 2, 3, 2, 1]] },
-    sierra3: { divisor: 32, matrix: [[0, 0, 0, 5, 3], [2, 4, 5, 4, 2], [0, 2, 3, 2, 0]] },
-    sierraLite: { divisor: 4, matrix: [[0, 0, 2], [1, 1, 0]] },
-  },
-} as const;
-
-// prettier-ignore
-export const ORDERED = {
-  keys: ['2', '4', '8'],
-  mapper: [{ key: '2', label: '2x2' }, { key: '4', label: '4x4' }, { key: '8', label: '8x8' }],
-  data: {
-    '2': { matrix: [[0, 2], [3, 1]] },
-    '4': { matrix: [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]] },
-    '8': { matrix: [[0, 32,  8, 40, 2, 34, 10, 42], [48, 16, 56, 24, 50, 18, 58, 26], [12, 44, 4, 36, 14, 46, 6, 38], [60, 28, 52, 20, 62, 30, 54, 22], [3, 35, 11, 43, 1, 33,  9, 41], [51, 19, 59, 27, 49, 17, 57, 25], [15, 47, 7, 39, 13, 45, 5, 37], [63, 31, 55, 23, 61, 29, 53, 21]] },
+    floydSteinberg: { type: 'Error Diffusion', divisor: 16, matrix: [[0, 0, 7], [3, 5, 1]] },
+    jarvisJudiceNinke: { type: 'Error Diffusion', divisor: 48, matrix: [[0, 0, 0, 7, 5], [3, 5, 7, 5, 3], [1, 3, 5, 3, 1]] },
+    stucki: { type: 'Error Diffusion', divisor: 42, matrix: [[0, 0, 0, 8, 4], [2, 4, 8, 4, 2], [1, 2, 4, 2, 1]] },
+    atkinson: { type: 'Error Diffusion', divisor: 8, matrix: [[0, 0, 1, 1], [1, 1, 1, 0], [0, 1, 0, 0]] },
+    burkes: { type: 'Error Diffusion', divisor: 32, matrix: [[0, 0, 0, 8, 4], [2, 4, 8, 4, 2]] },
+    sierra2: { type: 'Error Diffusion', divisor: 16, matrix: [[0, 0, 0, 4, 3], [1, 2, 3, 2, 1]] },
+    sierra3: { type: 'Error Diffusion', divisor: 32, matrix: [[0, 0, 0, 5, 3], [2, 4, 5, 4, 2], [0, 2, 3, 2, 0]] },
+    sierraLite: { type: 'Error Diffusion', divisor: 4, matrix: [[0, 0, 2], [1, 1, 0]] },
+    bayer2: { type: 'Ordered', divisor: null, matrix: [[0, 2], [3, 1]] },
+    bayer4: { type: 'Ordered', divisor: null, matrix: [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]] },
+    bayer8: { type: 'Ordered', divisor: null, matrix: [[0, 32, 8, 40, 2, 34, 10, 42], [48, 16, 56, 24, 50, 18, 58, 26], [12, 44, 4, 36, 14, 46, 6, 38], [60, 28, 52, 20, 62, 30, 54, 22], [3, 35, 11, 43, 1, 33,  9, 41], [51, 19, 59, 27, 49, 17, 57, 25], [15, 47, 7, 39, 13, 45, 5, 37], [63, 31, 55, 23, 61, 29, 53, 21]] },
   },
 } as const;
 

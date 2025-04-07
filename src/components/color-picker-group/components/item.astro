@@ -22,7 +22,8 @@ const { class: className, ...props } = Astro.props;
     :value="activePalette[$el.dataset.index] ?? '#000000'"
     @change="activePalette[$el.dataset.index] = $el.value; handleControlValue();"
     class={twMerge(
-      'focusable size-8 rounded',
+      'focusable size-8 rounded drop-shadow-sm drop-shadow-white/20',
+      '[&::-webkit-color-swatch]:inset-shadow-sm [&::-webkit-color-swatch]:inset-shadow-white/20',
       '[&::-webkit-color-swatch]:rounded-border [&::-webkit-color-swatch-wrapper]:p-0',
       '[&::-moz-color-swatch]:rounded-border [&::-moz-focus-inner]:p-0',
       className,

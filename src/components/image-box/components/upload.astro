@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'input'> & { icon?: string };
+
+const { class: className, icon, ...props } = Astro.props;
+---
+
+<div
+  :class="!!src && '**:hidden'"
+  class={twMerge(
+    'relative flex size-full flex-col items-center justify-center gap-1 bg-fixed',
+    'bg-[repeating-linear-gradient(-35deg,--alpha(var(--color-gray-2)/80%),--alpha(var(--color-gray-2)/80%)_3px,transparent_3px,transparent_7px)]',
+    className,
+  )}
+>
+  <slot />
+  <input
+    {...props}
+    x-cloak
+    x-show="!src"
+    type="file"
+    class="absolute inset-0 z-50 cursor-pointer opacity-0"
+    @change={`
+      const file = $event.target.files?.[0];
+      if (!file) return;
+
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        src = event.target.result;
+        name = file.name;
+        type = file.type;
+        lastModified = new Date(file.lastModified).toLocaleString();
+        size = file.size > 1024 * 1024 ? (file.size / (1024 * 1024)).toFixed(2) + ' MB' : (file.size / 1024).toFixed(2) + ' KB';
+        $refs.previewBefore.onload = () => dimensions = $refs.previewBefore.width + 'x' + $refs.previewBefore.height;
+      };
+    `}
+  />
+</div>

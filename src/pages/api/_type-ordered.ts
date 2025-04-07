@@ -1,23 +1,20 @@
-import { ORDERED } from '@/libs/data';
 import sharp from 'sharp';
 import z from 'zod';
 import { getNearestColor } from './_util-color';
 import type { schema } from './dither';
 
 export default async function (data: z.infer<typeof schema>) {
-  if (!data.matrixSize) throw new Error('Matrix size is required.');
-
   const width = data.image.info.width;
   const height = data.image.info.height;
   const channels = data.image.info.channels;
   const outputBuffer = Buffer.alloc(data.image.data.length);
-  const matrixSize = Number(data.matrixSize);
-  const bayerMatrix = ORDERED.data[data.matrixSize].matrix;
+  const matrixSize = data.algorithm.matrix.length;
   const normalizedMatrix: number[][] = [];
 
   for (let i = 0; i < matrixSize; i++) {
     normalizedMatrix[i] = [];
-    for (let j = 0; j < matrixSize; j++) normalizedMatrix[i]![j] = bayerMatrix[i]![j]! / (matrixSize * matrixSize);
+    for (let j = 0; j < matrixSize; j++)
+      normalizedMatrix[i]![j] = data.algorithm.matrix[i]![j]! / (matrixSize * matrixSize);
   }
 
   for (let y = 0; y < height; y++)
