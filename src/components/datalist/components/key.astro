@@ -2,9 +2,9 @@
 import Text from '@/components/text.astro';
 import type { ComponentProps } from 'astro/types';
 
-type Props = Omit<ComponentProps<typeof Text<'p'>>, 'as'>;
+type Props = Omit<ComponentProps<typeof Text<'dt'>>, 'as'>;
 
 const { variant, size, ...props } = Astro.props;
 ---
 
-<Text {...props} variant={variant ?? 'soft'} size={size ?? '1'}><slot /></Text>
+<Text {...props} as="dt" variant={variant ?? 'soft'} size={size ?? '1'}><slot /></Text>

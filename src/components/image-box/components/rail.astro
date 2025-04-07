@@ -11,7 +11,7 @@ const { class: className, defaultValue, ...props } = Astro.props;
 <input
   {...props}
   x-cloak
-  x-show="src"
+  x-show="$store.imageBox.src"
   type="range"
   min="0"
   max="100"
@@ -28,7 +28,7 @@ const { class: className, defaultValue, ...props } = Astro.props;
 
 <div
   x-cloak
-  x-show="src"
+  x-show="$store.imageBox.src"
   role="presentation"
   class:list={[
     'before:bg-gray-6/50 before:absolute before:inset-0 before:z-40 before:w-0.5 before:-translate-x-1/2 before:content-[""]',

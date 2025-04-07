@@ -5,12 +5,11 @@ import { twMerge } from 'tailwind-merge';
 
 type Props = Omit<ComponentProps<typeof Text<'label'>>, 'as'>;
 
-const { class: className, variant, weight, size, ...props } = Astro.props;
+const { class: className, weight, size, ...props } = Astro.props;
 ---
 
 <Text
   {...props}
-  {variant}
   as="label"
   weight={weight ?? 'bold'}
   size={size ?? '2'}

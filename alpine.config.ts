@@ -1,6 +1,8 @@
 import type { Alpine } from 'alpinejs';
 
 export default (Alpine: Alpine) => {
+  Alpine.store('imageBox', { src: null, name: null, type: null, size: null, dimensions: null, lastModified: null });
+
   Alpine.data('dither', () => ({
     image: '',
     submit(event: SubmitEvent) {

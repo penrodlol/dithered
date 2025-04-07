@@ -9,7 +9,7 @@ const { class: className, ...props } = Astro.props;
 
 <div
   {...props}
-  class={twMerge('rounded-border border-gray-6/80 grid h-14 grid-cols-[1fr_max-content] items-center gap-2', className)}
+  class={twMerge('border-gray-6/50 even:bg-gray-2/30 flex items-center justify-between border-b px-6 py-2', className)}
 >
   <slot />
 </div>

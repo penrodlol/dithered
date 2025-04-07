@@ -1,0 +1,10 @@
+---
+import Text from '@/components/text.astro';
+import type { ComponentProps } from 'astro/types';
+
+type Props = Omit<ComponentProps<typeof Text<'dd'>>, 'as'>;
+
+const { size, ...props } = Astro.props;
+---
+
+<Text {...props} as="dd" size={size ?? '1'}><slot /></Text>

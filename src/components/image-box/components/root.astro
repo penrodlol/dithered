@@ -20,12 +20,6 @@ const html = renderSlot(await Astro.slots.render('default'), { 'input[type=file]
   )}
   x-data="{
     reader: new FileReader(),
-    src: null,
-    name: null,
-    type: null,
-    size: null,
-    lastModified: null,
-    dimensions: null,
     useRailFallback: !CSS.supports('(animation-timeline: view()) and (animation-range: 0 100%)'),
     getRailFallbackPosition(el) { return Math.round(((el.value - el.min) / (el.max - el.min)) * 100); }
   }"

@@ -1,5 +1,6 @@
 ---
 import Button from '@/components/button.astro';
+import * as DataList from '@/components/datalist';
 import * as Form from '@/components/form';
 import * as Grid from '@/components/grid';
 import Icon from '@/components/icon.astro';
@@ -25,7 +26,7 @@ import * as data from '@/libs/data';
             <ImageBox.Rail />
           </ImageBox.Root>
         </Grid.Column>
-        <Grid.Column class="flex flex-col gap-10 border-r-0 p-10 not-lg:border-t lg:col-start-3">
+        <Grid.Column class="flex flex-col gap-10 border-r-0 p-10 not-lg:border-t lg:col-start-3 lg:max-w-xl">
           <Form.Field name="Algorithm">
             <Form.Label>Dithering Algorithm</Form.Label>
             <Select.Root defaultValue={data.ALGORITHMS.keys[0]}>
@@ -40,11 +41,37 @@ import * as data from '@/libs/data';
             </Select.Root>
             <Form.Description>Lorem ipsum dolor sit amet consectetur elit.</Form.Description>
           </Form.Field>
-          <Button variant="gray-solid" class="mt-auto w-36 self-end"><Icon name="sparkles" /> Generate</Button>
+          <Button variant="gray-solid" class="mt-10 sm:mt-auto sm:w-36 sm:self-end">
+            <Icon name="sparkles" />Generate
+          </Button>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row class="lg:grid-cols-[1fr_minmax(auto,var(--container-4xl))_minmax(var(--container-md),1fr)]">
-        <Grid.Column class="p-10 lg:col-start-2" />
+        <Grid.Column class="flex flex-col gap-10 lg:col-start-2">
+          <DataList.Root x-data>
+            <DataList.Item>
+              <DataList.Key>File Name</DataList.Key>
+              <DataList.Value x-text="$store.imageBox.name ?? '--'" />
+            </DataList.Item>
+            <DataList.Item>
+              <DataList.Key>Image Type</DataList.Key>
+              <DataList.Value x-text="$store.imageBox.type ?? '--'" />
+            </DataList.Item>
+            <DataList.Item>
+              <DataList.Key>Storage Size</DataList.Key>
+              <DataList.Value x-text="$store.imageBox.size ?? '--'" />
+            </DataList.Item>
+            <DataList.Item>
+              <DataList.Key>Dimensions</DataList.Key>
+              <DataList.Value x-text="$store.imageBox.dimensions ?? '--'" />
+            </DataList.Item>
+            <DataList.Item>
+              <DataList.Key>Last Modified</DataList.Key>
+              <DataList.Value x-text="$store.imageBox.lastModified ?? '--'" />
+            </DataList.Item>
+          </DataList.Root>
+          <Button variant="gray-solid" disabled class="mr-6 mb-6 self-end"><Icon name="download" /> Download</Button>
+        </Grid.Column>
       </Grid.Row>
     </Grid.Root>
   </Form.Root>

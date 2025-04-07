@@ -8,7 +8,7 @@ const { class: className, icon, ...props } = Astro.props;
 ---
 
 <div
-  :class="!!src && '**:hidden'"
+  :class="!!$store.imageBox.src && '**:hidden'"
   class={twMerge(
     'relative flex size-full flex-col items-center justify-center gap-1 bg-fixed',
     'bg-[repeating-linear-gradient(-35deg,--alpha(var(--color-gray-2)/80%),--alpha(var(--color-gray-2)/80%)_3px,transparent_3px,transparent_7px)]',
@@ -19,7 +19,7 @@ const { class: className, icon, ...props } = Astro.props;
   <input
     {...props}
     x-cloak
-    x-show="!src"
+    x-show="!$store.imageBox.src"
     type="file"
     class="absolute inset-0 z-50 cursor-pointer opacity-0"
     @change={`
@@ -28,12 +28,12 @@ const { class: className, icon, ...props } = Astro.props;
 
       reader.readAsDataURL(file);
       reader.onload = (event) => {
-        src = event.target.result;
-        name = file.name;
-        type = file.type;
-        lastModified = new Date(file.lastModified).toLocaleString();
-        size = file.size > 1024 * 1024 ? (file.size / (1024 * 1024)).toFixed(2) + ' MB' : (file.size / 1024).toFixed(2) + ' KB';
-        $refs.previewBefore.onload = () => dimensions = $refs.previewBefore.width + 'x' + $refs.previewBefore.height;
+        $store.imageBox.src = event.target.result;
+        $store.imageBox.name = file.name;
+        $store.imageBox.type = file.type;
+        $store.imageBox.lastModified = new Date(file.lastModified).toLocaleString();
+        $store.imageBox.size = file.size > 1024 * 1024 ? (file.size / (1024 * 1024)).toFixed(2) + ' MB' : (file.size / 1024).toFixed(2) + ' KB';
+        $refs.previewBefore.onload = () => $store.imageBox.dimensions = $refs.previewBefore.width + 'x' + $refs.previewBefore.height;
       };
     `}
   />

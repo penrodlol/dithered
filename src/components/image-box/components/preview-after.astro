@@ -18,7 +18,7 @@ const { class: className, ...props } = Astro.props;
 >
   <img
     x-cloak
-    x-show="src"
+    x-show="$store.imageBox.src"
     class:list={[
       'max-h-full rounded object-contain',
       'opacity-100 duration-200 motion-safe:transition-opacity starting:opacity-0',
