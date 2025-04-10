@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+import Item from './item.astro';
+
+type Props = HTMLAttributes<'div'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div
+  {...props}
+  x-ref="colorPickerItems"
+  class={twMerge(
+    'border-gray-6 scrollbar flex items-center gap-2 overflow-x-auto border-r bg-fixed px-4 py-2',
+    'bg-[repeating-linear-gradient(-35deg,--alpha(var(--color-gray-2)/80%),--alpha(var(--color-gray-2)/80%)_3px,transparent_3px,transparent_7px)]',
+    className,
+  )}
+>
+  <template x-for="(color, index) in colors" :key="index">
+    <Item :name="name" :value="colors[index] ?? '#000000'" :data-index="index" />
+  </template>
+</div>

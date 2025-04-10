@@ -3,14 +3,14 @@ import Text from '@/components/text.astro';
 import type { ComponentProps } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = Omit<ComponentProps<typeof Text<'label'>>, 'as'>;
+type Props = ComponentProps<typeof Text>;
 
-const { class: className, weight, size, ...props } = Astro.props;
+const { as, class: className, weight, size, ...props } = Astro.props;
 ---
 
 <Text
   {...props}
-  as="label"
+  as={as ?? 'label'}
   weight={weight ?? 'bold'}
   size={size ?? '2'}
   class={twMerge('max-w-max select-none', className)}

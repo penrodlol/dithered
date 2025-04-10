@@ -7,19 +7,13 @@ type Props = HTMLAttributes<'img'>;
 const { class: className, ...props } = Astro.props;
 ---
 
-<div
-  {...props}
-  class={twMerge(
-    'absolute inset-0 z-10 flex items-center justify-center p-10',
-    '[clip-path:inset(0_0_0_calc(var(--image-box-rail-position,0)*1%))]',
-    className,
-  )}
->
+<div class={twMerge('absolute inset-0 z-10 flex items-center justify-center p-10', className)}>
   <img
+    {...props}
     x-cloak
-    x-show="$store.imageBox.src"
+    x-show="beforeSrc"
     x-ref="previewBefore"
-    :src="$store.imageBox.src"
+    :src="beforeSrc"
     class:list={[
       'max-h-full rounded object-contain',
       'opacity-100 duration-200 motion-safe:transition-opacity starting:opacity-0',

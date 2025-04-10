@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'fieldset'> & {
+  name: string;
+  colors: Record<string, ReadonlyArray<string>>;
+  defaultColors: ReadonlyArray<string>;
+  control?: string;
+  controlValueOnChange?: string | undefined;
+};
+
+const { class: className, name, colors, defaultColors, control, controlValueOnChange, ...props } = Astro.props;
+---
+
+<fieldset
+  {...props}
+  class={twMerge('flex flex-col gap-2', className)}
+  x-init="control?.addEventListener('change', (event) => (colors = allColors[event.target.value]))"
+  x-data={`{
+    name: "${name}",
+     control: document.querySelector("${control}"),
+    controlValueOnChange: "${controlValueOnChange ?? ''}",
+    colors: ${JSON.stringify(defaultColors)},
+    get allColors() { return ${JSON.stringify(colors)} },
+    handleControlValue() { this.control?.length && this.controlValueOnChange?.length && (this.control.value = this.controlValueOnChange) }
+  }`}
+>
+  <slot />
+</fieldset>

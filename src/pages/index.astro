@@ -1,5 +1,6 @@
 ---
 import Button from '@/components/button.astro';
+import * as ColorPicker from '@/components/color-picker';
 import * as DataList from '@/components/datalist';
 import * as Form from '@/components/form';
 import * as Grid from '@/components/grid';
@@ -12,22 +13,26 @@ import * as data from '@/libs/data';
 ---
 
 <Layout>
-  <Form.Root>
+  <Form.Root x-data="store" @submit.prevent="applyDither">
     <Grid.Root>
       <Grid.Row class="lg:grid-cols-[1fr_minmax(auto,var(--container-4xl))_minmax(var(--container-md),1fr)]">
         <Grid.Column class="border-r-0 lg:col-start-2">
-          <ImageBox.Root name="image" class="h-120">
+          <ImageBox.Root name="image" class="h-140" @upload.window="original = $event.detail">
             <ImageBox.Upload accept="image/jpeg,image/png,image/webp,image/avif">
               <Text size="2">Drag and drop here or <Text as="span" size="2" underline>Browse</Text> files</Text>
               <Text variant="soft" size="1" italic>Supports JPEG, PNG, WEBP, AVIF</Text>
             </ImageBox.Upload>
             <ImageBox.PreviewBefore />
-            <ImageBox.PreviewAfter />
+            <ImageBox.PreviewAfter :src="dithered" />
+            <ImageBox.PreviewLoading>
+              <Text size="4">Dithering Image...</Text>
+              <Text variant="soft" size="1">Larger images may take longer to process.</Text>
+            </ImageBox.PreviewLoading>
             <ImageBox.Rail />
           </ImageBox.Root>
         </Grid.Column>
         <Grid.Column class="flex flex-col gap-10 border-r-0 p-10 not-lg:border-t lg:col-start-3 lg:max-w-xl">
-          <Form.Field name="Algorithm">
+          <Form.Field name="algorithm">
             <Form.Label>Dithering Algorithm</Form.Label>
             <Select.Root defaultValue={data.ALGORITHMS.keys[0]}>
               {data.ALGORITHMS.mapper.map((map) => <Select.Option value={map.key}>{map.label}</Select.Option>)}
@@ -41,36 +46,52 @@ import * as data from '@/libs/data';
             </Select.Root>
             <Form.Description>Lorem ipsum dolor sit amet consectetur elit.</Form.Description>
           </Form.Field>
-          <Button variant="gray-solid" class="mt-10 sm:mt-auto sm:w-36 sm:self-end">
-            <Icon name="sparkles" />Generate
+          <ColorPicker.Root
+            name="colorPalette"
+            colors={data.COLOR_PRESETS.data}
+            defaultColors={data.COLOR_PRESETS.data.blackAndWhite}
+            control="select[name=colorPalettePreset]"
+            controlValueOnChange={data.COLOR_PRESETS.mapper[data.COLOR_PRESETS.mapper.length - 1]?.key}
+          >
+            <ColorPicker.Label>Color Palette</ColorPicker.Label>
+            <ColorPicker.ItemsRoot>
+              <ColorPicker.Items />
+              <ColorPicker.ItemAdd />
+            </ColorPicker.ItemsRoot>
+            <ColorPicker.Description>Lorem ipsum dolor sit amet consectetur elit.</ColorPicker.Description>
+          </ColorPicker.Root>
+          <Button variant="gray-solid" type="submit" class="mt-10 sm:mt-auto sm:w-36 sm:self-end">
+            <Icon name="sparkles" /> Generate
           </Button>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row class="lg:grid-cols-[1fr_minmax(auto,var(--container-4xl))_minmax(var(--container-md),1fr)]">
         <Grid.Column class="flex flex-col gap-10 lg:col-start-2">
-          <DataList.Root x-data>
+          <DataList.Root>
             <DataList.Item>
               <DataList.Key>File Name</DataList.Key>
-              <DataList.Value x-text="$store.imageBox.name ?? '--'" />
+              <DataList.Value x-text="original.name ?? '--'" />
             </DataList.Item>
             <DataList.Item>
               <DataList.Key>Image Type</DataList.Key>
-              <DataList.Value x-text="$store.imageBox.type ?? '--'" />
+              <DataList.Value x-text="original.type ?? '--'" />
             </DataList.Item>
             <DataList.Item>
               <DataList.Key>Storage Size</DataList.Key>
-              <DataList.Value x-text="$store.imageBox.size ?? '--'" />
+              <DataList.Value x-text="original.size ?? '--'" />
             </DataList.Item>
             <DataList.Item>
               <DataList.Key>Dimensions</DataList.Key>
-              <DataList.Value x-text="$store.imageBox.dimensions ?? '--'" />
+              <DataList.Value x-text="original.dimensions ?? '--'" />
             </DataList.Item>
             <DataList.Item>
               <DataList.Key>Last Modified</DataList.Key>
-              <DataList.Value x-text="$store.imageBox.lastModified ?? '--'" />
+              <DataList.Value x-text="original.lastModified ?? '--'" />
             </DataList.Item>
           </DataList.Root>
-          <Button variant="gray-solid" disabled class="mr-6 mb-6 self-end"><Icon name="download" /> Download</Button>
+          <Button variant="gray-solid" disabled class="mr-6 mb-6 sm:w-36 sm:self-end">
+            <Icon name="download" /> Download
+          </Button>
         </Grid.Column>
       </Grid.Row>
     </Grid.Root>

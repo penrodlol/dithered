@@ -8,8 +8,6 @@ const { class: className, ...props } = Astro.props;
 ---
 
 <div
-  {...props}
-  x-ref="previewAfter"
   class={twMerge(
     'absolute inset-0 z-20 flex items-center justify-center p-10',
     '[clip-path:inset(0_0_0_calc(var(--image-box-rail-position,0)*1%))]',
@@ -17,8 +15,12 @@ const { class: className, ...props } = Astro.props;
   )}
 >
   <img
+    {...props}
     x-cloak
-    x-show="$store.imageBox.src"
+    x-show="afterSrc"
+    x-ref="previewAfter"
+    :src="afterSrc"
+    @load="afterSrc = $event.target.src"
     class:list={[
       'max-h-full rounded object-contain',
       'opacity-100 duration-200 motion-safe:transition-opacity starting:opacity-0',

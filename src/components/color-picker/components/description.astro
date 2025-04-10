@@ -1,0 +1,8 @@
+---
+import * as Form from '@/components/form';
+import type { ComponentProps } from 'astro/types';
+
+type Props = ComponentProps<typeof Form.Description>;
+---
+
+<Form.Description {...Astro.props}><slot /></Form.Description>

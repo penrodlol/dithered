@@ -1,0 +1,39 @@
+---
+import Button from '@/components/button.astro';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'input'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div class="group relative flex items-center justify-center">
+  <input
+    {...props}
+    type="color"
+    @change="colors[$el.dataset.index] = $el.value; handleControlValue();"
+    class={twMerge(
+      'focusable size-6 rounded',
+      '[&::-webkit-color-swatch]:rounded-border [&::-webkit-color-swatch-wrapper]:p-0',
+      '[&::-moz-color-swatch]:rounded-border [&::-moz-focus-inner]:p-0',
+      className,
+    )}
+  />
+  <Button
+    variant="brand-soft-outline"
+    size="icon"
+    icon="x"
+    x-show="colors.length > 2"
+    @click="colors = colors.filter((_, index) => index !== Number($el.previousElementSibling.dataset.index)); handleControlValue();"
+    class:list={[
+      'absolute -top-1.5 -right-1.5 size-4 rounded-full p-0 [&_svg]:size-3',
+      'group-hover:transition-all group-hover:transition-discrete',
+      'group-hover:opacity-100 group-hover:starting:opacity-0',
+      'group-hover:scale-100 group-hover:starting:scale-95',
+      'not-group-hover:hidden not-group-hover:transition-all not-group-hover:transition-discrete',
+      'not-group-hover:opacity-0 not-group-hover:starting:opacity-100',
+      'not-group-hover:scale-95 not-group-hover:starting:scale-100',
+    ]}
+  />
+</div>

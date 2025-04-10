@@ -11,7 +11,7 @@ const image = z
   .transform(async (file) => Buffer.from(await file.arrayBuffer()))
   .transform(async (buffer) => sharp(buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true }));
 const algorithm = z.enum(data.ALGORITHMS.keys).transform((value) => data.ALGORITHMS.data[value]);
-const colorPalette = z.array(z.string().regex(/^#[0-9A-Fa-f]{6}$/)).optional();
+const colorPalette = z.array(z.string().regex(/^#[0-9A-Fa-f]{6}$/));
 export const schema = z.object({ image, algorithm, colorPalette });
 
 export const POST: APIRoute = async ({ request }) => {

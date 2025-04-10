@@ -2,7 +2,7 @@
 import Text from '@/components/text.astro';
 import type { ComponentProps } from 'astro/types';
 
-type Props = Omit<ComponentProps<typeof Text<'p'>>, 'as'>;
+type Props = ComponentProps<typeof Text>;
 
 const { variant, size, ...props } = Astro.props;
 ---

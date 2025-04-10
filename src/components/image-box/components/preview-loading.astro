@@ -1,0 +1,23 @@
+---
+import Icon from '@/components/icon.astro';
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'div'> & { icon?: string };
+
+const { class: className, icon, ...props } = Astro.props;
+---
+
+<div
+  {...props}
+  x-cloak
+  x-show="loading"
+  class={twMerge(
+    'bg-gray-2/70 absolute inset-0 z-30 flex flex-col items-center justify-center backdrop-blur-sm',
+    'opacity-100 transition-discrete motion-safe:transition-opacity starting:opacity-0',
+    className,
+  )}
+>
+  <Icon name={icon ?? 'loader'} class="mb-4 size-8 motion-safe:animate-spin" variant="soft" />
+  <slot />
+</div>

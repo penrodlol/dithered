@@ -3,9 +3,9 @@ import { renderSlot } from '@/libs/component';
 import type { HTMLAttributes } from 'astro/types';
 import { twMerge } from 'tailwind-merge';
 
-type Props = HTMLAttributes<'div'> & { name: string };
+type Props = HTMLAttributes<'div'> & { name: string; beforeSrc?: string; afterSrc?: string };
 
-const { class: className, name, ...props } = Astro.props;
+const { class: className, name, beforeSrc, afterSrc, ...props } = Astro.props;
 const html = renderSlot(await Astro.slots.render('default'), { 'input[type=file]': { name: () => name } });
 ---
 
@@ -18,11 +18,13 @@ const html = renderSlot(await Astro.slots.render('default'), { 'input[type=file]
     '[animation-range:contain] [animation-timeline:--image-box-rail-control]',
     className,
   )}
-  x-data="{
+  x-data={`{
+    beforeSrc: "${beforeSrc ?? ''}",
+    afterSrc: "${afterSrc ?? ''}",
     reader: new FileReader(),
     useRailFallback: !CSS.supports('(animation-timeline: view()) and (animation-range: 0 100%)'),
     getRailFallbackPosition(el) { return Math.round(((el.value - el.min) / (el.max - el.min)) * 100); }
-  }"
+  }`}
 />
 
 <style>
